@@ -1,4 +1,4 @@
-# flutter_github_app
+# FlutterGithubApp
 
 A new Flutter project.
 

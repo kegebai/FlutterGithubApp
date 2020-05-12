@@ -8,7 +8,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: Text('我的')),
+      body: Center(child: Text('我的', style: TextStyle(color: Colors.green, fontSize: 20),),),
+    );
   }
 }

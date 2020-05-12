@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:dio/dio.dart';
-import 'package:flutter_github_app/app/utils/datetime_utils.dart';
+
+import '../../utils/datetime_utils.dart';
 
 class CacheObject {
   Response response;

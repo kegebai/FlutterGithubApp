@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_github_app/storages/local_storage.dart';
 
 import './blocs/global/global_bloc.dart';
 import './blocs/global/global_event.dart';
+import './storages/local_storage.dart';
 
 class BlocWrapper extends StatelessWidget {
   final LocalStorage storage;

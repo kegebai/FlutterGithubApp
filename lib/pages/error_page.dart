@@ -51,7 +51,7 @@ class _ErrorPageState extends State<ErrorPage> {
                   "Error Occur",
                   style: new TextStyle(fontSize: 24, color: Colors.white),
                 ),
-                color: ThemeData().primaryColor,
+                color: Theme.of(context).primaryColor,
               ),
               new SizedBox(height: 40,),
               new Row(
