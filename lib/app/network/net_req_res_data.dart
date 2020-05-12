@@ -1,0 +1,22 @@
+///
+/// File: net_req_res_data.dart
+/// 
+/// Created by kege <kegebai@gmail.com> on 2020-05-01
+/// Copyright © 2020 BLH .inc
+/// 
+/// Code as poetry.
+/// All we can do is our best, and sometimes the best we can do is to start over.
+///
+class NetworkRequestResultData {
+  var data;
+  bool result;
+  int code;
+  var headers;
+
+  NetworkRequestResultData(
+    this.data, 
+    this.result, 
+    this.code, 
+    {this.headers}
+  );
+}
