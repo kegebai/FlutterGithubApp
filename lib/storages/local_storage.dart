@@ -27,11 +27,11 @@ class LocalStorage {
 
   /// 
   Future<GlobalState> initApp() async {
-    var _sp = await _sps;
+    var sp = await _sps;
 
-    var themeIndex = _sp.get(Cons.themeColorIndex) ?? 4;
-    var fontIndex = _sp.get(Cons.fontFamilyIndex) ?? 0;
-    var languageIndex = _sp.get(Cons.languageIndex) ?? 0;
+    var themeIndex = sp.get(Cons.themeColorIndex) ?? 4;
+    var fontIndex = sp.get(Cons.fontFamilyIndex) ?? 0;
+    var languageIndex = sp.get(Cons.languageIndex) ?? 0;
 
     return GlobalState(LocalStorage(
       color: Cons.themeColorSupport.keys.toList()[themeIndex],
@@ -40,42 +40,56 @@ class LocalStorage {
     ));
   }
 
-  setFontFamily(String fontFamily) async {
-    var _sp = await _sps;
+  Future<void> setFontFamily(String fontFamily) async {
+    var sp = await _sps;
     var index = Cons.fontFamilySupport.indexOf(fontFamily);
-    _sp.setInt(Cons.fontFamilyIndex, index);
+    sp.setInt(Cons.fontFamilyIndex, index);
   }
 
-  getFontFamily() {}
+  Future<String> getFontFamily() async {
+    var sp = await _sps;
+    return Cons.fontFamilySupport[sp.get(Cons.fontFamilyIndex)];
+  }
 
-  setThemeColor(MaterialColor color) async {
-    var _sp = await _sps;
+  Future<void> setThemeColor(MaterialColor color) async {
+    var sp = await _sps;
     var index = Cons.themeColorSupport.keys.toList().indexOf(color);
-    _sp.setInt(Cons.themeColorIndex, index);
+    sp.setInt(Cons.themeColorIndex, index);
   }
 
-  getTheme() {}
+  Future<String> getTheme() async {
+    var sp = await _sps;
+    var key = Cons.themeColorSupport.keys.toList()[sp.get(Cons.themeColorIndex)];
+    return Cons.themeColorSupport[key];
+  }
 
-  setLanguage(String language) async {
-    var _sp = await _sps;
+  Future<void> setLanguage(String language) async {
+    var sp = await _sps;
     var index = Cons.languageSupport.indexOf(language);
-    _sp.setInt(Cons.languageIndex, index);
+    sp.setInt(Cons.languageIndex, index);
   }
 
-  getLanguage() {}
-
-  setToken(String key, value) async {
-    var _sp = await _sps;
-    _sp.setString(key, value);
+  Future<String> getLanguage() async {
+    var sp = await _sps;
+    return Cons.languageSupport[sp.get(Cons.languageIndex)]; 
   }
 
-  getToken(String key) async {
-    var _sp = await _sps;
-    _sp.get(key);
+  ///
+  Future<void> save(String key, value) async {
+    var sp = await _sps;
+    sp.setString(key, value);
   }
 
-  removeToken(String key) async {
-    var _sp = await _sps;
-    _sp.remove(key);
+  ///
+  Future<String> get(String key) async {
+    var sp = await _sps;
+    return sp.get(key);
   }
+
+  ///
+  Future<void> remove(String key) async {
+    var sp = await _sps;
+    sp.remove(key);
+  } 
+
 }

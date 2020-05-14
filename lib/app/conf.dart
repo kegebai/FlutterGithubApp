@@ -1,8 +1,3 @@
-class EnvConf {
-  static bool DEBUG = true;
-
-}
-
 class Conf {
   // static const API_TOKEN = "4d65e2a5626103f92a71867d7b49fea0";
 

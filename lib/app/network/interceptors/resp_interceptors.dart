@@ -9,6 +9,7 @@
 ///
 import 'package:dio/dio.dart';
 
+import '../../dlog.dart';
 import '../net_req_res_data.dart';
 import '../resp_code.dart';
 
@@ -36,7 +37,7 @@ class RespInterceptors extends InterceptorsWrapper {
       }
 
     } catch (e) {
-      print(e.toString() + options.path);
+      Dlog.log(e.toString() + options.path);
       value = NetworkRequestResultData(
         response.data,
         false,

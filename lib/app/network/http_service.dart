@@ -20,13 +20,17 @@ import './interceptors/resp_interceptors.dart';
 import './interceptors/token_interceptors.dart';
 import './net_req_res_data.dart';
 import './resp_code.dart';
+import '../../storages/local_storage.dart';
 
 class HttpService {
   static const CONTENT_TYPE_JSON = "application/json";
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded";
 
   final Dio _dio = new Dio();
-  final TokenInterceptors _tokenInterceptors = new TokenInterceptors();
+  
+  final TokenInterceptors _tokenInterceptors = 
+      new TokenInterceptors(storage: new LocalStorage());
+  
   final NetworkCache _cache = new NetworkCache();
 
   /// Factory

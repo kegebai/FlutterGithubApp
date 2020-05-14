@@ -25,9 +25,9 @@ abstract class DBProvider {
     ''';
   }
 
-  Future<Database> db() async {
-    return await open();
-  }
+  // Future<Database> db() async {
+  //   return await open();
+  // }
 
   @mustCallSuper
   open() async {

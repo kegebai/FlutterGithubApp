@@ -8,13 +8,18 @@
 /// All we can do is our best, and sometimes the best we can do is to start over.
 ///
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
+import '../../dlog.dart';
 import '../../conf.dart';
-import '../../utils/sp_utils.dart';
 import '../graphql/graphql_service.dart';
+import '../../../storages/local_storage.dart';
 
 class TokenInterceptors extends InterceptorsWrapper {
+  final LocalStorage storage;
   String _token;
+
+  TokenInterceptors({@required this.storage});
 
   @override
   onRequest(RequestOptions options) async {
@@ -36,19 +41,19 @@ class TokenInterceptors extends InterceptorsWrapper {
       if (response.statusCode == 201 && respJson['token'] != null) {
         _token = 'token ' + respJson['token'];
         //* Save the token to local
-        await SPUtils.save(Conf.TOKEN_KEY, _token);
+        await storage.save(Conf.TOKEN_KEY, _token);
       }
     } catch (e) {
-      print(e);
+      Dlog.log(e);
     }
     return response;
   }
 
   /// Authorizetion
   authorize() async {
-    String token = await SPUtils.get(Conf.TOKEN_KEY);
+    String token = await storage.get(Conf.TOKEN_KEY);
     if (token == null) {
-      String basic = await SPUtils.get(Conf.USER_BASIC_CODE);
+      String basic = await storage.get(Conf.USER_BASIC_CODE);
       if (basic == null) {
         // todo Remind users to login.
 
@@ -66,7 +71,7 @@ class TokenInterceptors extends InterceptorsWrapper {
   deauthorize() {
     this._token = null;
     //! Delete the local token
-    SPUtils.remove(Conf.TOKEN_KEY);
+    storage.remove(Conf.TOKEN_KEY);
     GraphQLService.release();
   }   
 }

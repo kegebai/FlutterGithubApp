@@ -2,8 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../conf.dart';
-
+import '../../dlog.dart';
 class LogsInterceptors extends InterceptorsWrapper {
   static var httpResp = new List<Map>();
   static var respHttpUrl = new List<String>();
@@ -21,12 +20,10 @@ class LogsInterceptors extends InterceptorsWrapper {
 
   @override
   Future onRequest(RequestOptions options) async {
-    if (EnvConf.DEBUG) {
-      print('Url : ${options.path}');
-      print('Header : ' + options.headers.toString());
-      if (options.data != null) {
-        print('Parameters : ' + options.data.toString());
-      }
+    Dlog.log('Url : ${options.path}');
+    Dlog.log('Header : ' + options.headers.toString());
+    if (options.data != null) {
+      Dlog.log('Parameters : ' + options.data.toString());
     }
 
     try {
@@ -42,7 +39,7 @@ class LogsInterceptors extends InterceptorsWrapper {
 
       _addData(httpRequ, map);
     } catch (e) {
-      print(e);
+      Dlog.log(e);
     }
 
     return options;
@@ -50,10 +47,8 @@ class LogsInterceptors extends InterceptorsWrapper {
 
   @override
   Future onResponse(Response response) async {
-    if (EnvConf.DEBUG) {
-      if (response.data != null) {
-        print('Return parameters : ' + response.toString());
-      }
+    if (response.data != null) {
+      Dlog.log('Return parameters : ' + response.toString());
     }
 
     if (response.data is Map || response.data is List) {
@@ -63,7 +58,7 @@ class LogsInterceptors extends InterceptorsWrapper {
         _addData(respHttpUrl, response?.request?.uri?.toString() ?? '');
         _addData(httpResp, data);
       } catch (e) {
-        print(e);
+        Dlog.log(e);
       }
     } 
     else if (response.data is String) {
@@ -73,7 +68,7 @@ class LogsInterceptors extends InterceptorsWrapper {
         _addData(respHttpUrl, response?.request?.uri.toString() ?? '');
         _addData(httpResp, data); 
       } catch (e) {
-        print(e);
+        Dlog.log(e);
       }
     } 
     else if (response.data != null) {
@@ -82,7 +77,7 @@ class LogsInterceptors extends InterceptorsWrapper {
         _addData(respHttpUrl, response?.request?.uri.toString() ?? '');
         _addData(httpResp, json.decode(data)); 
       } catch (e) {
-        print(e);
+        Dlog.log(e);
       }
     }
 
@@ -91,10 +86,8 @@ class LogsInterceptors extends InterceptorsWrapper {
 
   @override
   Future onError(DioError err) async {
-    if (EnvConf.DEBUG) {
-      print('Request Exception : ' + err.toString());
-      print('Exception Info : ' + (err.response?.toString() ?? ''));
-    }
+    Dlog.log('Request Exception : ' + err.toString());
+    Dlog.log('Exception Info : ' + (err.response?.toString() ?? ''));
 
     try {
       _addData(errsHttpUrl, err.request.path ?? 'null');
@@ -102,7 +95,7 @@ class LogsInterceptors extends InterceptorsWrapper {
       errors['error'] = err.message;
       _addData(httpErrs, errors);
     } catch (e) {
-      print(e);
+      Dlog.log(e);
     }
 
     return err;
