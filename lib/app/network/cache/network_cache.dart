@@ -21,7 +21,7 @@ class NetworkCache {
   var cache = LinkedHashMap<String, CacheObject>();
 
   onRequest(RequestOptions options) async {
-    if (!Global.profile.cache.enable) return options;
+    // if (!Global.profile.cache.enable) return options;
 
     // refresh标记是否是"下拉刷新"
     bool refresh = options.extra["refresh"] == true;
@@ -43,30 +43,30 @@ class NetworkCache {
       var ob = cache[key];
       if (ob != null) {
         //若缓存未过期，则返回缓存内容
-        if ((DateTime.now().millisecondsSinceEpoch - ob.timestamp) / 1000 < Global.profile.cache.maxAge) {
-          return cache[key].response;
-        } else {
-          //若已过期则删除缓存，继续向服务器请求
-          cache.remove(key);
-        }
+        // if ((DateTime.now().millisecondsSinceEpoch - ob.timestamp) / 1000 < Global.profile.cache.maxAge) {
+        //   return cache[key].response;
+        // } else {
+        //   //若已过期则删除缓存，继续向服务器请求
+        //   cache.remove(key);
+        // }
       }
     }
   }
 
   onResponse(Response response) async {
     // 如果启用缓存，将返回结果保存到缓存
-    if (Global.profile.cache.enable) {
-      _saveCache(response);
-    }
+    // if (Global.profile.cache.enable) {
+    //   _saveCache(response);
+    // }
   }
 
   _saveCache(Response object) {
     RequestOptions options = object.request;
     if (options.extra["noCache"] != true && options.method.toLowerCase() == "get") {
       // 如果缓存数量超过最大数量限制，则先移除最早的一条记录
-      if (cache.length == Global.profile.cache.maxCount) {
-        cache.remove(cache[cache.keys.first]);
-      }
+      // if (cache.length == Global.profile.cache.maxCount) {
+      //   cache.remove(cache[cache.keys.first]);
+      // }
       String key = options.extra["cacheKey"] ?? options.uri.toString();
       cache[key] = CacheObject(object);
     }

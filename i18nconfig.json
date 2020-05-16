@@ -1,0 +1,12 @@
+{
+    "defaultLocale": "zh-CN",
+    "locales": [
+        "zh-CN"
+    ],
+    "localePath": "i18n",
+    "generatedPath": "lib/generated",
+    "ltr": [
+        "zh-CN"
+    ],
+    "rtl": []
+}

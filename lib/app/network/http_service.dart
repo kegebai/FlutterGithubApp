@@ -49,19 +49,15 @@ class HttpService {
   }
   /// Internal private constructor
   HttpService._internal() {
-    _initialize();
-  }
-
-  _initialize() {
     _dio.interceptors.add(new HeaderInterceptors());
     _dio.interceptors.add(_tokenInterceptors);
     _dio.interceptors.add(new LogsInterceptors());
     _dio.interceptors.add(new RespInterceptors());
 
     _dio.interceptors.add(new ErrorInterceptors(_dio));
-    _dio.interceptors.add(new CacheInterceptors(_cache));
+    // _dio.interceptors.add(new CacheInterceptors(_cache));
   }
-
+  
   /// Initiate a network request
   /// 
   Future<NetworkRequestResultData> fetch(
@@ -84,17 +80,11 @@ class HttpService {
     // Internal error handling function 
     _error(DioError e) {
       Response eResp;
-
-      if (e.response != null) {
-        eResp = e.response;
-      } else {
-        eResp = new Response(statusCode: 1001);
-      }
+      eResp = e.response != null ? e.response : new Response(statusCode: 1001);
 
       if (e.type == DioErrorType.CONNECT_TIMEOUT || e.type == DioErrorType.RECEIVE_TIMEOUT) {
         eResp.statusCode = RespCode.NETWORK_TIMEOUT;
       }
-
       return new NetworkRequestResultData(
         RespCode.respError(eResp.statusCode, e.message, tip), 
         false, 
@@ -112,7 +102,6 @@ class HttpService {
     if (response.data is DioError) {
       return _error(response.data);
     }
-
     return response.data;
   }
 

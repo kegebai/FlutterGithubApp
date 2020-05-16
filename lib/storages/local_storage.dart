@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../blocs/global/global_state.dart';
+import '../app/conf.dart';
 import '.././app/cons.dart';
+import '../blocs/global/global_state.dart';
+import '../models/user.dart';
 
 class LocalStorage {
   final MaterialColor color;
   final String language;
   final String fontFamily;
+  /// Private getter
+  Future<SharedPreferences> get _sps async => await SharedPreferences.getInstance();
 
-  LocalStorage({this.color, this.language, this.fontFamily});
+  LocalStorage({
+    this.color, 
+    this.language, 
+    this.fontFamily,
+  });
 
   LocalStorage copyWith({
     MaterialColor color,
     String language,
     String fontFamily,
-  }) =>
-      LocalStorage(
-        color: color ?? this.color,
-        language: language ?? this.language,
-        fontFamily: fontFamily ?? this.fontFamily,
-      );
-
-  /// Private getter
-  Future<SharedPreferences> get _sps async => await SharedPreferences.getInstance();
-
+  }) {
+    return LocalStorage(
+      color: color ?? this.color,
+      language: language ?? this.language,
+      fontFamily: fontFamily ?? this.fontFamily,
+    );
+  }
+  
   /// 
   Future<GlobalState> initApp() async {
     var sp = await _sps;
@@ -90,6 +96,15 @@ class LocalStorage {
   Future<void> remove(String key) async {
     var sp = await _sps;
     sp.remove(key);
+  }
+
+  Future<void> clearAll() async {
+    var sp = await _sps;
+    sp.remove(Conf.TOKEN_KEY);
+    sp.remove(Conf.USER_BASIC_CODE);
+    sp.remove(Conf.USER_INFO_KEY);
+    sp.remove(Conf.USER_NAME_KEY);
+    sp.remove(Conf.USER_PW_KEY); 
   } 
 
 }

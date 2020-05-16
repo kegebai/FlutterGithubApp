@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -19,7 +20,7 @@ class LogsInterceptors extends InterceptorsWrapper {
   }
 
   @override
-  Future onRequest(RequestOptions options) async {
+  onRequest(RequestOptions options) async {
     Dlog.log('Url : ${options.path}');
     Dlog.log('Header : ' + options.headers.toString());
     if (options.data != null) {
@@ -33,20 +34,22 @@ class LogsInterceptors extends InterceptorsWrapper {
       if (options.data is Map) data = options.data;
 
       var map = {
-        'header': {options.headers},
+        'header:' : {
+          ...options.headers,
+        },
       };
-      if (options.method == 'POST') map['data'] = data as Set<Map<String, dynamic>>;
+      
+      if (options.method == 'POST') map['data'] = data;
 
       _addData(httpRequ, map);
     } catch (e) {
       Dlog.log(e);
     }
-
     return options;
   }
 
   @override
-  Future onResponse(Response response) async {
+  onResponse(Response response) async {
     if (response.data != null) {
       Dlog.log('Return parameters : ' + response.toString());
     }
@@ -80,12 +83,11 @@ class LogsInterceptors extends InterceptorsWrapper {
         Dlog.log(e);
       }
     }
-
     return response;
   }
 
   @override
-  Future onError(DioError err) async {
+  onError(DioError err) async {
     Dlog.log('Request Exception : ' + err.toString());
     Dlog.log('Exception Info : ' + (err.response?.toString() ?? ''));
 
@@ -97,7 +99,6 @@ class LogsInterceptors extends InterceptorsWrapper {
     } catch (e) {
       Dlog.log(e);
     }
-
     return err;
   }
 }

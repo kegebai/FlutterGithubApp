@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/router.dart';
+import '../../blocs/oauth/oauth_bloc.dart';
+import '../../blocs/oauth/oauth_event.dart';
+import '../../blocs/oauth/oauth_state.dart';
+import '../../repositories/itf/user_repository.dart';
 
-class Splash extends StatefulWidget {
-  final double size;
-  Splash({this.size = 200});
+class ZfjtlSplash extends StatefulWidget {
+  final OAuthState authState;
+  final UserRepository userRepos;
+
+  ZfjtlSplash({
+    double size=200, 
+    this.authState, 
+    this.userRepos,
+  });
 
   @override
-  _SplashState createState() => new _SplashState();
+  _ZfjtlSplashState createState() => new _ZfjtlSplashState();
 }
 
-class _SplashState extends State<Splash> with TickerProviderStateMixin {
+class _ZfjtlSplashState extends State<ZfjtlSplash> with TickerProviderStateMixin {
   AnimationController _controller;
   AnimationController _secController;
   double _factor;
@@ -25,6 +36,11 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
+    _init();
+  }
+
+  _init() {
     // SystemUiOverlayStyle systemUiOverlayStyle =
     //     SystemUiOverlayStyle(statusBarColor: Colors.red);
     // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
@@ -39,42 +55,61 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     SystemChrome.setSystemUIOverlayStyle(style);
     // SystemChrome.setEnabledSystemUIOverlays([]);
 
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
-          ..addListener(() => setState(() {
-                return _factor = _curveAnim.value;
-              }))
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              setState(() {
-                _animComplete = true;
-                _secController.forward();
-              });
-            }
+    _controller = AnimationController(
+      vsync: this, 
+      duration: Duration(milliseconds: 1000)
+    )
+      ..addListener(() => setState(() {
+            return _factor = _curveAnim.value;
+          }))
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          setState(() {
+            _animComplete = true;
+            _secController.forward();
           });
-    _secController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600))
-          ..addListener(() => setState(() {
-                return _secFactor = _secCurveAnim.value;
-              }))
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-               Navigator.of(context).pushReplacementNamed(Router.module_scaffold);
-            }
-          });
-    _curveAnim =
-        CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
-    _bouncAnim =
-        CurvedAnimation(parent: _secController, curve: Curves.bounceOut);
-    _secCurveAnim =
-        CurvedAnimation(parent: _secController, curve: Curves.fastOutSlowIn);
-    _controller.forward();
+        }
+      });
 
-    super.initState();
+    _secController = AnimationController(
+      vsync: this, 
+      duration: Duration(milliseconds: 600)
+    )
+      ..addListener(() => setState(() {
+            return _secFactor = _secCurveAnim.value;
+          }))
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          if (widget.authState is OAuthed) {
+            Navigator.of(context).pushReplacementNamed(Router.module_scaffold);
+          } 
+          if (widget.authState is UnOAuthed) {
+            BlocProvider.of<OAuthBloc>(context).add(LoggedInStarted());
+            Navigator.of(context).pushReplacementNamed(Router.login);
+          }
+        }
+      });
+
+    _curveAnim = CurvedAnimation(
+      parent: _controller, 
+      curve: Curves.fastOutSlowIn,
+    );
+    _bouncAnim = CurvedAnimation(
+      parent: _secController, 
+      curve: Curves.bounceOut,
+    );
+    _secCurveAnim = CurvedAnimation(
+      parent: _secController, 
+      curve: Curves.fastOutSlowIn,
+    );
+
+    _controller.forward();
   }
 
   @override
   void dispose() {
+    _controller.dispose();
+    _secController.dispose();
     super.dispose();
   }
 
@@ -84,23 +119,24 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     var winW = MediaQuery.of(context).size.width;
 
     return Scaffold(
-        body: Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        //
-        _buildFlutterLogo(Colors.blue),
-        //
-        Container(
-          width: winW,
-          height: winH,
-          child: CustomPaint(
-            painter: SplashPainter(factor: _factor),
+      body: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          //
+          _buildFlutterLogo(Colors.blue),
+          //
+          Container(
+            width: winW,
+            height: winH,
+            child: CustomPaint(
+              painter: SplashPainter(factor: _factor),
+            ),
           ),
-        ),
-        //
-        _buildDescText(winW, winH),
-      ],
-    ));
+          //
+          _buildDescText(winW, winH),
+        ],
+      ),
+    );
   }
 
   Widget _buildFlutterLogo(Color primaryColor) {
@@ -199,48 +235,11 @@ class SplashPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     canvas.translate(
         size.width / 2 - width * 0.5, size.height / 2 - width * 0.5);
-    
     _drawColors(canvas, size);
-
-    // _drawLogo(canvas);
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
-
-  _drawLogo(Canvas canvas) {
-    canvas.save();
-    _path1.moveTo(0, 0);
-    _path1.lineTo(width * 0.5 - 1, 0);
-    _path1.lineTo(width * 0.5 - 1, width * 0.5 - 1);
-    _path1.lineTo(0, width * 0.5 - 1);
-    canvas.drawPath(_path1, _paint..color = Colors.red); 
-    canvas.restore();
-
-    canvas.save();
-    _path2.moveTo(width * 0.5 + 1, 0);
-    _path2.lineTo(width, 0);
-    _path2.lineTo(width, width * 0.5 - 1);
-    _path2.lineTo(width * 0.5 + 1, width * 0.5 - 1);
-    canvas.drawPath(_path2, _paint..color = Colors.green); 
-    canvas.restore();
-
-    canvas.save();
-    _path3.moveTo(width * 0.5 + 1, width * 0.5 + 1);
-    _path3.lineTo(width, width * 0.5 + 1);
-    _path3.lineTo(width, width);
-    _path3.lineTo(width * 0.5 + 1, width);
-    canvas.drawPath(_path3, _paint..color = Colors.yellow); 
-    canvas.restore();
-
-    canvas.save();
-    _path4.moveTo(0, width * 0.5 + 1);
-    _path4.lineTo(width * 0.5 - 1, width * 0.5 + 1);
-    _path4.lineTo(width * 0.5 - 1, width);
-    _path4.lineTo(0, width);
-    canvas.drawPath(_path4, _paint..color = Colors.blue);
-    canvas.restore();
-  }
 
   _drawColors(Canvas canvas, Size size) {
     canvas.save();

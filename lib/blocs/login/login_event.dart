@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
@@ -7,28 +8,28 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UsernameChanged extends LoginEvent {
+class EmailChanged extends LoginEvent {
   final String email;
 
-  UsernameChanged(this.email);
+  EmailChanged(this.email);
 
   @override
   List<Object> get props => [email];
 
   @override
-  String toString() => 'UsernameChanged { username: $email }';
+  String toString() => 'EmailChanged { email: $email }';
 }
 
-class PasswordChanged extends LoginEvent {
+class PwdChanged extends LoginEvent {
   final String pwd;
 
-  PasswordChanged(this.pwd);
+  PwdChanged(this.pwd);
 
   @override
   List<Object> get props => [pwd];
 
   @override
-  String toString() => 'PasswordChanged { password: $pwd }';
+  String toString() => 'PwdChanged { pwd: $pwd }';
 }
 
 class Submitted extends LoginEvent {
@@ -41,5 +42,21 @@ class Submitted extends LoginEvent {
   List<Object> get props => [email, pwd];
 
   @override
-  String toString() => 'Submitted { username: $email, password: $pwd }';
+  String toString() => 'Submitted { email: $email, pwd: $pwd }';
+}
+
+// class LoginWithGoogle extends LoginEvent {}
+
+class LogIn extends LoginEvent {
+  final String email;
+  final String pwd;
+  final BuildContext ctx;
+
+  const LogIn(this.ctx, {@required this.email, @required this.pwd});
+
+  @override
+  List<Object> get props => [email, pwd];
+
+  @override
+  String toString() => 'Login { email: $email, pwd: $pwd }';
 }

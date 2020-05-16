@@ -8,12 +8,14 @@ import './app/dlog.dart';
 import './bloc_wrapper.dart';
 import './blocs/simple_bloc_delegate.dart';
 import './pages/error_page.dart';
+import './repositories/imp/user_repository_imp.dart';
 import './storages/local_storage.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
   final storage = LocalStorage();
+  final userRepos = new UserRepositoryImp(storage);
 
   runZoned(
     () {
@@ -27,13 +29,24 @@ void main() {
           details: details,
         );
       };
-      runApp(BlocWrapper(
-        storage: storage,
-        child: App(),
-      ));
+      runApp(
+        BlocWrapper(
+          storage: storage, 
+          userRepos: userRepos,
+          child: App(userRepos: userRepos),
+        ),
+      );
     },
     onError: (Object obj, StackTrace stack) {
       Dlog.log('$obj\n $stack');
     }
   );
+
+  // runApp(
+  //   BlocWrapper(
+  //     storage: storage, 
+  //     userRepos: userRepos,
+  //     child: App(userRepos: userRepos),
+  //   ),
+  // );
 }

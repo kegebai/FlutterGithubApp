@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => new _LoginPageState();
-}
+import '../../blocs/login/login_bloc.dart';
+import '../../blocs/oauth/oauth_bloc.dart';
+import '../../blocs/oauth/oauth_event.dart';
+import '../../blocs/oauth/oauth_state.dart';
 
-class _LoginPageState extends State<LoginPage> {
-  
+import './login_form.dart';
+
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-
+    return Scaffold(
+      // appBar: AppBar(title: Text('Login')),
+      body: BlocBuilder<OAuthBloc, OAuthState>(
+        builder: (_, state) {
+          if (state is UnOAuthed) {
+            return BlocProvider<LoginBloc>(
+              create: (_) => LoginBloc(userRepos: state.userRepos),
+              child: LoginForm(userRepos: state.userRepos),
+            );
+          }
+          return Container();
+        },        
+      ),
     );
   }
 }

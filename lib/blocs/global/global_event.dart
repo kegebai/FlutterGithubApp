@@ -8,10 +8,7 @@ abstract class GlobalEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadApp extends GlobalEvent {
-  @override
-  String toString() => 'LoadApp {}';
-}
+class LoadApp extends GlobalEvent {}
 
 class SwitchFontFamily extends GlobalEvent {
   final String fontFamily;

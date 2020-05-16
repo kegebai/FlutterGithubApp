@@ -34,7 +34,7 @@ class DBService {
     // When user is visitor the database name is `flutter_github_app.db`.
     String _dbName = _NAME;
 
-    User user = await _userRepo.getUserInfo();
+    User user = await _userRepo.getLocalUserInfo();
     if (user != null && user.login != null) {
       // When user login the database name is `user_flutter_github_app.db`
       _dbName = user.login + '_' + _NAME;
