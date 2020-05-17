@@ -15,7 +15,7 @@ class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
   @override
   Stream<GlobalState> mapEventToState(GlobalEvent event) async* {
     if (event is LoadApp) {
-      yield await storage.initApp();
+      yield await storage.initLocalStorage();
     } 
     else if (event is SwitchFontFamily) {
       yield* _mapSwitchFontFamilyToState(event);

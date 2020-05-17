@@ -36,12 +36,12 @@ class UserRepositoryImp implements UserRepository {
 
   @override
   Future<void> signIn(BuildContext ctx, String email, String pwd) async {
-    await _dao.login(ctx, email, pwd);
+    await _dao.logIn(ctx, email, pwd);
   }
 
   @override
   Future<void> signOut(BuildContext ctx) async {
-    await _dao.logout(ctx);
+    await _dao.logOut(ctx);
   }
 
   @override

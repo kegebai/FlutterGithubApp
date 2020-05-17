@@ -35,8 +35,9 @@ class PwdChanged extends LoginEvent {
 class Submitted extends LoginEvent {
   final String email;
   final String pwd;
+  final BuildContext ctx;
 
-  Submitted(this.email, this.pwd);
+  Submitted(this.ctx, this.email, this.pwd);
 
   @override
   List<Object> get props => [email, pwd];

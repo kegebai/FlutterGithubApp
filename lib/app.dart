@@ -38,8 +38,8 @@ class App extends StatelessWidget {
         ///
         home: BlocBuilder<OAuthBloc, OAuthState>(
           builder: (ctx, authState) {
-            // if (authState is Unauthed) {
-            //   return LoginPage(userRepos: userRepos);
+            // if (authState is UnOAuthed) {
+            //   return LoginPage();
             // } 
             return ZfjtlSplash(authState: authState);
           },

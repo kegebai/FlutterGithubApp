@@ -48,7 +48,7 @@ class UserDao {
   }
 
   ///
-  Future<DaoRes> login(context, String userName, String pwd) async {
+  Future<DaoRes> logIn(context, String userName, String pwd) async {
     Dlog.log(userName);
     Dlog.log(pwd);
     var bytes = utf8.encode(userName + ':' + pwd);
@@ -87,7 +87,7 @@ class UserDao {
   }
 
   /// Clear all informations in the local of user when logout.
-  Future<void> logout(context) async {
+  Future<void> logOut(context) async {
     HttpService.instance.deauthorize();
     storage.remove(Conf.USER_INFO_KEY);
     //

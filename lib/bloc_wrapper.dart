@@ -24,7 +24,7 @@ class BlocWrapper extends StatelessWidget {
           create: (_) => GlobalBloc(storage)..add(LoadApp()),
         ),
         BlocProvider<OAuthBloc>(
-          create: (context) => OAuthBloc(userRepos)..add(Uninited()),
+          create: (context) => OAuthBloc(userRepos)..add(UnInited()),
         ),
       ], 
       child: child,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../app/style/science_fiction_shape_border.dart';
+import '../../app/style/zfjtl_tech_shape_border.dart';
 
 class ScienceFictionListItem extends StatelessWidget {
   final String title;
@@ -10,7 +10,7 @@ class ScienceFictionListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Theme.of(context).primaryColor.withAlpha(66),
-      shape: ScienceFictionShapeBorder(color: Theme.of(context).primaryColor),
+      shape: ZfjtlTechShapeBorder(color: Theme.of(context).primaryColor),
       child: Container(
         height: 95,
         padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 5),

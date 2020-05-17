@@ -10,15 +10,12 @@ class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
   OAuthBloc(this.userRepos) : assert(userRepos != null);
 
   @override
-  OAuthState get initialState => Uninitialized();
+  OAuthState get initialState => UnInitialized();
 
   @override
   Stream<OAuthState> mapEventToState(OAuthEvent event) async* {
-    if (event is Uninited) {
-      yield* _mapAppStartedToState();
-    }
-    else if (event is LoggedInStarted) {
-      yield* _mapLoggedInStartedToState();
+    if (event is UnInited) {
+      yield* _mapUnInitedToState();
     }
     else if (event is LoggedIn) {
       yield* _mapLoggedInToState();
@@ -28,7 +25,7 @@ class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
     }
   }
 
-  Stream<OAuthState> _mapAppStartedToState() async* {
+  Stream<OAuthState> _mapUnInitedToState() async* {
     final isSignedIn = await userRepos.isSignedIn();
     if (isSignedIn) {
       final user = await userRepos.getLocalUserInfo();
@@ -37,10 +34,6 @@ class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
     else {
       yield UnOAuthed(userRepos);
     }
-  }
-
-  Stream<OAuthState> _mapLoggedInStartedToState() async* {
-    yield UnOAuthed(userRepos);
   }
 
   Stream<OAuthState> _mapLoggedInToState() async* {

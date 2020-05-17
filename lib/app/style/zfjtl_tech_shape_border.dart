@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ScienceFictionShapeBorder extends ShapeBorder {
+class ZfjtlTechShapeBorder extends ShapeBorder {
   final Paint _paint = Paint();
   final Path outerLinePath = Path();
   final Path innerLinePath = Path();
@@ -12,7 +12,7 @@ class ScienceFictionShapeBorder extends ShapeBorder {
   final strokeWidth;
   final innerRate;
 
-  ScienceFictionShapeBorder({
+  ZfjtlTechShapeBorder({
     this.color = Colors.green,
     this.cornerWidth = 10.0,
     this.spanWidth = 2.5,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../app/conf.dart';
-import '.././app/cons.dart';
+import '../app/cons.dart';
 import '../blocs/global/global_state.dart';
 import '../models/user.dart';
 
@@ -32,7 +32,7 @@ class LocalStorage {
   }
   
   /// 
-  Future<GlobalState> initApp() async {
+  Future<GlobalState> initLocalStorage() async {
     var sp = await _sps;
 
     var themeIndex = sp.get(Cons.themeColorIndex) ?? 4;

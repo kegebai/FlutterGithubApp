@@ -8,7 +8,7 @@ abstract class OAuthState extends Equatable {
   List<Object> get props => [];
 }
 
-class Uninitialized extends OAuthState {}
+class UnInitialized extends OAuthState {}
 
 class OAuthed extends OAuthState {
   final String displayName;

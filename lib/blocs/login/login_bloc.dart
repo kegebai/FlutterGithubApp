@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapPwdChangedToState(event.pwd);
     } 
     else if (event is LogIn) {
-      yield* _mapLogInToState(email: event.email, pwd: event.pwd, ctx: event.ctx);
+      yield* _mapLogInToState(ctx: event.ctx, email: event.email, pwd: event.pwd,);
     } 
   }
 

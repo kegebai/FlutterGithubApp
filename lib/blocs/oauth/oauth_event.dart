@@ -5,9 +5,7 @@ abstract class OAuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class Uninited extends OAuthEvent {}
-
-class LoggedInStarted extends OAuthEvent {}
+class UnInited extends OAuthEvent {}
 
 class LoggedIn extends OAuthEvent {}
 
