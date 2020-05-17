@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_github_app/app/codec.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-import '../db_service.dart';
-import '../db_provider.dart';
-import '../../models/user.dart';
+import './db_service.dart';
+import './db_provider.dart';
+import '.././models/user.dart';
 
 class UserDBProvider extends DBProvider {
   final String tbName = 'User';

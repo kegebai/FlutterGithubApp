@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -177,7 +179,7 @@ class _LoginFormState extends State<LoginForm> {
 class LoginButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  LoginButton({Key key, this.onPressed}) : super(key: key);
+  LoginButton({this.onPressed});
 
   @override
   Widget build(BuildContext context) {

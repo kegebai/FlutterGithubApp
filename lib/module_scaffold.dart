@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './blocs/global/global_bloc.dart';
 import './blocs/global/global_state.dart';
 import './pages/home/home_page.dart';
+import './pages/dynamic/dynamic_page.dart';
 import './pages/profile/profile_page.dart';
+import './pages/trend/trend_page.dart';
 
 class ModuleScaffold extends StatefulWidget {
   @override
@@ -31,6 +33,8 @@ class _ModuleScaffoldState extends State<ModuleScaffold> {
       index: _currentIndex,
       children: <Widget>[
         HomePage(),
+        DynamicPage(),
+        TrendPage(),
         ProfilePage(),
       ],
     );
@@ -55,8 +59,10 @@ class _ModuleScaffoldState extends State<ModuleScaffold> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    _buildItem(icon: Icons.widgets, text: '首页', index: 0),
-                    _buildItem(icon: Icons.fingerprint, text: '我的', index: 1),
+                    _buildItem(icon: Icons.home, text: '首页', index: 0),
+                    _buildItem(icon: Icons.widgets, text: '动态', index: 1),
+                    _buildItem(icon: Icons.trending_up, text: '趋势', index: 2),
+                    _buildItem(icon: Icons.fingerprint, text: '我的', index: 3),
                   ]
                 ),
               )

@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 
 import '../app/dlog.dart';
 
-class SimpleBlocDelegate extends BlocDelegate {
+class DebugBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
     Dlog.log('onEvent $event');

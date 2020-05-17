@@ -10,7 +10,7 @@ import '../../app/network/http_service.dart';
 import '../../app/network/ip_service.dart';
 import '../../blocs/oauth/oauth_bloc.dart';
 import '../../blocs/oauth/oauth_event.dart';
-import '../../db/user/user_db_provider.dart';
+import '../../db/user_db_provider.dart';
 import '../../models/user.dart';
 import '../../storages/dao/dao_res.dart';
 import '../../storages/local_storage.dart';
