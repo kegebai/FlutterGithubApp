@@ -10,12 +10,12 @@ import '../../repositories/itf/user_repository.dart';
 
 class ZfjtlSplash extends StatefulWidget {
   final OAuthState authState;
-  final UserRepository userRepos;
+  final UserRepository userRepo;
 
   ZfjtlSplash({
     double size=200, 
     this.authState, 
-    this.userRepos,
+    this.userRepo,
   });
 
   @override

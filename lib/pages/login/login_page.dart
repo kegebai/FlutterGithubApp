@@ -17,8 +17,8 @@ class LoginPage extends StatelessWidget {
         builder: (_, state) {
           if (state is UnOAuthed) {
             return BlocProvider<LoginBloc>(
-              create: (_) => LoginBloc(userRepos: state.userRepos),
-              child: LoginForm(userRepos: state.userRepos),
+              create: (_) => LoginBloc(userRepo: state.userRepo),
+              child: LoginForm(userRepo: state.userRepo),
             );
           }
           return Container();

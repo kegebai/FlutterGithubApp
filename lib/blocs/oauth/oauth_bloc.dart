@@ -5,9 +5,9 @@ import './oauth_state.dart';
 import '../../repositories/itf/user_repository.dart';
 
 class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
-  final UserRepository userRepos;
+  final UserRepository userRepo;
 
-  OAuthBloc(this.userRepos) : assert(userRepos != null);
+  OAuthBloc(this.userRepo) : assert(userRepo != null);
 
   @override
   OAuthState get initialState => UnInitialized();
@@ -26,23 +26,23 @@ class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
   }
 
   Stream<OAuthState> _mapUnInitedToState() async* {
-    final isSignedIn = await userRepos.isSignedIn();
+    final isSignedIn = await userRepo.isSignedIn();
     if (isSignedIn) {
-      final user = await userRepos.getLocalUserInfo();
+      final user = await userRepo.getLocalUserInfo();
       yield OAuthed(user.name);
     } 
     else {
-      yield UnOAuthed(userRepos);
+      yield UnOAuthed(userRepo);
     }
   }
 
   Stream<OAuthState> _mapLoggedInToState() async* {
-    final user = await userRepos.getLocalUserInfo();
+    final user = await userRepo.getLocalUserInfo();
     yield OAuthed(user.name);
   }
 
   Stream<OAuthState> _mapLoggedOutToState() async* {
-    yield UnOAuthed(userRepos);
-    userRepos.signOut(null);
+    yield UnOAuthed(userRepo);
+    userRepo.signOut(null);
   }
 }

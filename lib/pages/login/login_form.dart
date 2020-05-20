@@ -12,9 +12,9 @@ import '../../blocs/login/login_state.dart';
 import '../../repositories/itf/user_repository.dart';
 
 class LoginForm extends StatefulWidget {
-  final UserRepository userRepos;
+  final UserRepository userRepo;
 
-  LoginForm({this.userRepos});
+  LoginForm({this.userRepo});
 
   @override
   _LoginFormState createState() => new _LoginFormState();
@@ -26,7 +26,7 @@ class _LoginFormState extends State<LoginForm> {
 
   LoginBloc _loginBloc;
 
-  UserRepository get userRepos => widget.userRepos;
+  UserRepository get userRepos => widget.userRepo;
 
   bool get isPopulated =>
       _emailController.text.isNotEmpty && _pwdController.text.isNotEmpty;

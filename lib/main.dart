@@ -15,7 +15,7 @@ void main() {
   BlocSupervisor.delegate = DebugBlocDelegate();
 
   final storage = LocalStorage();
-  final userRepos = new UserRepositoryImp(storage);
+  final userRepo = new UserRepositoryImp(storage);
 
   runZoned(
     () {
@@ -30,19 +30,12 @@ void main() {
         );
       };
       runApp(
-        BlocWrapper(storage: storage, userRepos: userRepos, child: App()),
+        BlocWrapper(storage: storage, userRepo: userRepo, child: App()),
       );
     },
     onError: (Object obj, StackTrace stack) {
       Dlog.log('$obj\n $stack');
     }
   );
-
-  // runApp(
-  //   BlocWrapper(
-  //     storage: storage, 
-  //     userRepos: userRepos,
-  //     child: App(userRepos: userRepos),
-  //   ),
-  // );
+  
 }

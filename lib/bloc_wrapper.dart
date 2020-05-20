@@ -10,11 +10,11 @@ import './storages/local_storage.dart';
 
 class BlocWrapper extends StatelessWidget {
   final LocalStorage storage;
-  final UserRepository userRepos;
+  final UserRepository userRepo;
 
   final Widget child;
 
-  const BlocWrapper({Key key, this.child, this.storage, this.userRepos});
+  const BlocWrapper({Key key, this.child, this.storage, this.userRepo});
   
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class BlocWrapper extends StatelessWidget {
           create: (_) => GlobalBloc(storage)..add(LoadApp()),
         ),
         BlocProvider<OAuthBloc>(
-          create: (context) => OAuthBloc(userRepos)..add(UnInited()),
+          create: (context) => OAuthBloc(userRepo)..add(UnInited()),
         ),
       ], 
       child: child,

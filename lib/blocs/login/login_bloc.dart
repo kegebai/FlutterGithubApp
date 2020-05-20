@@ -10,9 +10,9 @@ import './login_event.dart';
 import './login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  UserRepository userRepos;
+  UserRepository userRepo;
   
-  LoginBloc({@required this.userRepos}) : assert(userRepos != null);
+  LoginBloc({@required this.userRepo}) : assert(userRepo != null);
 
   @override
   LoginState get initialState => LoginState.empty();
@@ -64,7 +64,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapLogInToState({String email, String pwd, ctx}) async* {
     try {
-      await userRepos.signIn(ctx, email, pwd);
+      await userRepo.signIn(ctx, email, pwd);
       yield LoginState.success();
     } catch (e) {
       Dlog.log(e);

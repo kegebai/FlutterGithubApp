@@ -23,13 +23,13 @@ class OAuthed extends OAuthState {
 }
 
 class UnOAuthed extends OAuthState {
-  final UserRepository userRepos;
+  final UserRepository userRepo;
 
-  const UnOAuthed(this.userRepos);
-
-  @override
-  List<Object> get props => [userRepos];
+  const UnOAuthed(this.userRepo);
 
   @override
-  String toString() => 'UnOAuthed { userRepos: $userRepos }';
+  List<Object> get props => [userRepo];
+
+  @override
+  String toString() => 'UnOAuthed { userRepo: $userRepo }';
 }
