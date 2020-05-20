@@ -1,3 +1,39 @@
 {
-    "greetTo": "Hello {name}"
+    "app_name": "FlutterGithub",
+    "ok": "ok",
+    "cancel": "cancel",
+    "empty": "Empty(oﾟ▽ﾟ)o",
+    "licenses": "licenses",
+    "close": "close",
+
+    "no_desc": "No description !",
+
+    "option_copy": "copy",
+
+    "login_text": "Login",
+    "oauth_text": "OAuth",
+    "Login_out": "Logout",
+
+    "language_default": "Default",
+    "language_zh_CN": "中文",
+    "language_en_US": "English",
+    "language_switch": "select language",
+
+    "login_username_hint_text": "username",
+    "login_password_hint_text": "password",
+    "login_success": "Login Success",
+
+    "network_error_401": "Http 401",
+    "network_error_403": "Http 403",
+    "network_error_404": "Http 404",
+    "network_error_422": "Request Body Error，Please Check Github ClientId or Account/PW",
+    "network_error_timeout": "Http timeout",
+    "network_error_unknown": "Http unknown error",
+    "network_error": "network error",
+    "github_refused": "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ",
+
+    "nothing_now": "Nothing",
+    "loading_text": "Loading···",
+    "loadmore_not": "nothing",
+    "loadmore_text": "loading"
 }

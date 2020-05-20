@@ -1,17 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_github_app/generated/i18n.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../models/repos.dart';
+import '../../models/repo.dart';
 
-class ReposItem extends StatefulWidget {
-  final Repos repos;
-  ReposItem(this.repos) : super(key: ValueKey(repos.id));
+class RepoListItem extends StatefulWidget {
+  final Repo repo;
+  RepoListItem(this.repo) : super(key: ValueKey(repo.id));
 
   @override
-  _ReposItemState createState() => _ReposItemState();
+  _RepoListItemState createState() => _RepoListItemState();
 }
 
-class _ReposItemState extends State<ReposItem> {
+class _RepoListItemState extends State<RepoListItem> {
   @override
   Widget build(BuildContext context) {
     var subtitle;
@@ -32,48 +34,46 @@ class _ReposItemState extends State<ReposItem> {
             children: <Widget>[
               ListTile(
                 dense: true,
-                leading: Avatar(
-                  //项目owner头像
-                  widget.repos.owner.avatar_url,
+                leading: rdAvatar(
+                  widget.repo.owner.avatar_url,
                   width: 24.0,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 title: Text(
-                  widget.repos.owner.login,
+                  widget.repo.owner.login,
                   textScaleFactor: .9,
                 ),
                 subtitle: subtitle,
-                trailing: Text(widget.repos.language ?? ""),
+                trailing: Text(widget.repo.language ?? ""),
               ),
-              // 构建项目标题和简介
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.repos.fork
-                          ? widget.repos.full_name
-                          : widget.repos.name,
+                      widget.repo.fork
+                          ? widget.repo.full_name
+                          : widget.repo.name,
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        fontStyle: widget.repos.fork
+                        fontStyle: widget.repo.fork
                             ? FontStyle.italic
                             : FontStyle.normal,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 12),
-                      child: widget.repos.description == null
+                      child: widget.repo.description == null
                           ? Text(
-                              GmLocalizations.of(context).noDescription,
+                              I18n.of(context).no_desc,
                               style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   color: Colors.grey[700]),
                             )
                           : Text(
-                              widget.repos.description,
+                              widget.repo.description,
                               maxLines: 3,
                               style: TextStyle(
                                 height: 1.15,
@@ -85,7 +85,6 @@ class _ReposItemState extends State<ReposItem> {
                   ],
                 ),
               ),
-              // 构建卡片底部信息
               _buildBottom()
             ],
           ),
@@ -94,7 +93,6 @@ class _ReposItemState extends State<ReposItem> {
     );
   }
 
-  // 构建卡片底部信息
   Widget _buildBottom() {
     const paddingWidth = 10;
     return IconTheme(
@@ -110,24 +108,24 @@ class _ReposItemState extends State<ReposItem> {
             var children = <Widget>[
               Icon(Icons.star),
               Text(" " +
-                  widget.repos.stargazers_count
+                  widget.repo.stargazers_count
                       .toString()
                       .padRight(paddingWidth)),
               Icon(Icons.info_outline),
               Text(" " +
-                  widget.repos.open_issues_count
+                  widget.repo.open_issues_count
                       .toString()
                       .padRight(paddingWidth)),
 
-              Icon(Icons.play_for_work), //我们的自定义图标
-              Text(widget.repos.forks_count.toString().padRight(paddingWidth)),
+              Icon(Icons.play_for_work), 
+              Text(widget.repo.forks_count.toString().padRight(paddingWidth)),
             ];
 
-            if (widget.repos.fork) {
+            if (widget.repo.fork) {
               children.add(Text("Forked".padRight(paddingWidth)));
             }
 
-            if (widget.repos.private == true) {
+            if (widget.repo.private == true) {
               children.addAll(<Widget>[
                 Icon(Icons.lock),
                 Text(" Private".padRight(paddingWidth))
@@ -142,17 +140,13 @@ class _ReposItemState extends State<ReposItem> {
 }
 
 
-Widget Avatar(String url, {
+Widget rdAvatar(String url, {
   double width = 30,
   double height,
   BoxFit fit,
   BorderRadius borderRadius,
 }) {
-  var placeholder = Image.asset(
-      "assets/images/github.png", //头像默认值
-      width: width,
-      height: height
-  );
+  var placeholder = Image.asset("assets/images/github.png", width: width, height: height);
   return ClipRRect(
     borderRadius: borderRadius ?? BorderRadius.circular(2),
     child: CachedNetworkImage(

@@ -32,8 +32,66 @@ class I18n implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
-  /// "你好 ${name}"
-  String greetTo(String name) => "你好 ${name}";
+  /// "FlutterGithub"
+  String get app_name => "FlutterGithub";
+  /// "确定"
+  String get ok => "确定";
+  /// "取消"
+  String get cancel => "取消";
+  /// "目前什么也没有哟(oﾟ▽ﾟ)o"
+  String get empty => "目前什么也没有哟(oﾟ▽ﾟ)o";
+  /// "协议"
+  String get licenses => "协议";
+  /// "关闭"
+  String get close => "关闭";
+  /// "暂无描述!"
+  String get no_desc => "暂无描述!";
+  /// "复制"
+  String get option_copy => "复制";
+  /// "账号登录"
+  String get login_text => "账号登录";
+  /// "安全登录"
+  String get oauth_text => "安全登录";
+  /// "退出登录"
+  String get Login_out => "退出登录";
+  /// "默认"
+  String get language_default => "默认";
+  /// "中文"
+  String get language_zh_CN => "中文";
+  /// "英文"
+  String get language_en_US => "英文";
+  /// "语言切换"
+  String get language_switch => "语言切换";
+  /// "用户名"
+  String get login_username_hint_text => "用户名";
+  /// "请输入密码"
+  String get login_password_hint_text => "请输入密码";
+  /// "登录成功"
+  String get login_success => "登录成功";
+  /// "[401错误可能: 未授权 \ 授权登录失败 \ 登录过期]"
+  String get network_error_401 => "[401错误可能: 未授权 \ 授权登录失败 \ 登录过期]";
+  /// "403权限错误"
+  String get network_error_403 => "403权限错误";
+  /// "404错误"
+  String get network_error_404 => "404错误";
+  /// "请求实体异常，请确保 Github ClientId 、账号秘密等信息正确。"
+  String get network_error_422 => "请求实体异常，请确保 Github ClientId 、账号秘密等信息正确。";
+  /// "请求超时"
+  String get network_error_timeout => "请求超时";
+  /// "其他异常"
+  String get network_error_unknown => "其他异常";
+  /// "网络错误"
+  String get network_error => "网络错误";
+  /// "Github Api 出现异常[Connection refused]，建议换个网络环境或者稍后再试"
+  String get github_refused => "Github Api 出现异常[Connection refused]，建议换个网络环境或者稍后再试";
+  /// "目前什么都没有"
+  String get nothing_now => "目前什么都没有";
+  /// "努力加载中···"
+  String get loading_text => "努力加载中···";
+  /// "没有更多数据"
+  String get loadmore_not => "没有更多数据";
+  /// "正在加载更多"
+  String get loadmore_text => "正在加载更多";
 }
 
 class _I18n_zh_CN extends I18n {
@@ -43,11 +101,110 @@ class _I18n_zh_CN extends I18n {
   TextDirection get textDirection => TextDirection.ltr;
 }
 
+class _I18n_en_US extends I18n {
+  const _I18n_en_US();
+
+  /// "FlutterGithub"
+  @override
+  String get app_name => "FlutterGithub";
+  /// "ok"
+  @override
+  String get ok => "ok";
+  /// "cancel"
+  @override
+  String get cancel => "cancel";
+  /// "Empty(oﾟ▽ﾟ)o"
+  @override
+  String get empty => "Empty(oﾟ▽ﾟ)o";
+  /// "licenses"
+  @override
+  String get licenses => "licenses";
+  /// "close"
+  @override
+  String get close => "close";
+  /// "No description !"
+  @override
+  String get no_desc => "No description !";
+  /// "copy"
+  @override
+  String get option_copy => "copy";
+  /// "Login"
+  @override
+  String get login_text => "Login";
+  /// "OAuth"
+  @override
+  String get oauth_text => "OAuth";
+  /// "Logout"
+  @override
+  String get Login_out => "Logout";
+  /// "Default"
+  @override
+  String get language_default => "Default";
+  /// "中文"
+  @override
+  String get language_zh_CN => "中文";
+  /// "English"
+  @override
+  String get language_en_US => "English";
+  /// "select language"
+  @override
+  String get language_switch => "select language";
+  /// "username"
+  @override
+  String get login_username_hint_text => "username";
+  /// "password"
+  @override
+  String get login_password_hint_text => "password";
+  /// "Login Success"
+  @override
+  String get login_success => "Login Success";
+  /// "Http 401"
+  @override
+  String get network_error_401 => "Http 401";
+  /// "Http 403"
+  @override
+  String get network_error_403 => "Http 403";
+  /// "Http 404"
+  @override
+  String get network_error_404 => "Http 404";
+  /// "Request Body Error，Please Check Github ClientId or Account/PW"
+  @override
+  String get network_error_422 => "Request Body Error，Please Check Github ClientId or Account/PW";
+  /// "Http timeout"
+  @override
+  String get network_error_timeout => "Http timeout";
+  /// "Http unknown error"
+  @override
+  String get network_error_unknown => "Http unknown error";
+  /// "network error"
+  @override
+  String get network_error => "network error";
+  /// "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later "
+  @override
+  String get github_refused => "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ";
+  /// "Nothing"
+  @override
+  String get nothing_now => "Nothing";
+  /// "Loading···"
+  @override
+  String get loading_text => "Loading···";
+  /// "nothing"
+  @override
+  String get loadmore_not => "nothing";
+  /// "loading"
+  @override
+  String get loadmore_text => "loading";
+
+  @override
+  TextDirection get textDirection => TextDirection.ltr;
+}
+
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocalizations> {
   const GeneratedLocalizationsDelegate();
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale("zh", "CN")
+      Locale("zh", "CN"),
+      Locale("en", "US")
     ];
   }
 
@@ -70,8 +227,14 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocali
     if ("zh_CN" == lang) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_zh_CN());
     }
+    else if ("en_US" == lang) {
+      return SynchronousFuture<WidgetsLocalizations>(const _I18n_en_US());
+    }
     else if ("zh" == languageCode) {
       return SynchronousFuture<WidgetsLocalizations>(const _I18n_zh_CN());
+    }
+    else if ("en" == languageCode) {
+      return SynchronousFuture<WidgetsLocalizations>(const _I18n_en_US());
     }
 
     return SynchronousFuture<WidgetsLocalizations>(const I18n());

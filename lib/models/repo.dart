@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 
 import './user.dart';
 
-class Repos extends Equatable {
+class Repo extends Equatable {
   num id;
   String name;
   String full_name;
   User owner;
-  Repos parent;
+  Repo parent;
   bool private;
   String html_url;
   String description;
@@ -33,10 +33,10 @@ class Repos extends Equatable {
   num subscribers_count;
   Map<String, dynamic> license;
 
-  Repos();
+  Repo();
 
-  factory Repos.fromJson(Map<String, dynamic> json) {
-    return Repos()
+  factory Repo.fromJson(Map<String, dynamic> json) {
+    return Repo()
       ..id = json['id'] as num
       ..name = json['name'] as String
       ..full_name = json['full_name'] as String
@@ -45,7 +45,7 @@ class Repos extends Equatable {
           : User.fromJson(json['owner'] as Map<String, dynamic>)
       ..parent = json['parent'] == null
           ? null
-          : Repos.fromJson(json['parent'] as Map<String, dynamic>)
+          : Repo.fromJson(json['parent'] as Map<String, dynamic>)
       ..private = json['private'] as bool
       ..html_url = json['html_url'] as String
       ..description = json['description'] as String
@@ -110,8 +110,12 @@ class Repos extends Equatable {
 
 class License extends Equatable {
   String name;
+  String key;
+  String url;
+  // String spdx_id;
+  // String node_id;
 
-  License(this.name);
+  License(this.name, this.key, this.url);
 
   @override
   List<Object> get props => [name];

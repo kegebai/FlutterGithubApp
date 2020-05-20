@@ -30,11 +30,7 @@ void main() {
         );
       };
       runApp(
-        BlocWrapper(
-          storage: storage, 
-          userRepos: userRepos,
-          child: App(userRepos: userRepos),
-        ),
+        BlocWrapper(storage: storage, userRepos: userRepos, child: App()),
       );
     },
     onError: (Object obj, StackTrace stack) {
