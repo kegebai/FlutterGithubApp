@@ -44,9 +44,9 @@ class Cons {
 }
 
 class TimeCons {
-  static final double MILLIS = 1000.0;
-  static final double SECONDS = 60 * MILLIS;
-  static final double MINUTES = 60 * SECONDS;
-  static final double HOURS = 24 * MINUTES;
-  static final double DAYS = 30 * HOURS;
+  static final double millis = 1000.0;
+  static final double seconds = 60 * millis;
+  static final double minutes = 60 * seconds;
+  static final double hours = 24 * minutes;
+  static final double days = 30 * hours;
 }

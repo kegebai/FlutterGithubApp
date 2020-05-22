@@ -5,7 +5,7 @@ import '../../models/user.dart';
 abstract class UserRepository {
   Future<bool> isAuthed();
   
-  Future<void> oAuth(BuildContext ctx);
+  Future<void> auth(BuildContext ctx);
 
 
   Future<bool> isSignedIn();

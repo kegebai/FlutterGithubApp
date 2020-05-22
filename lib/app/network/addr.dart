@@ -1,6 +1,6 @@
 import '../cons.dart';
 
-class IpService {
+class Addr {
 
   /// Authorize `post`
   static authorization() => '${IpCons.apiHost}authorizations';

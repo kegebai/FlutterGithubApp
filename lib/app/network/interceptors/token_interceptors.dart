@@ -24,7 +24,7 @@ class TokenInterceptors extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options) async {
     if (_token == null) {
-      var authCode = await authorize();
+      var authCode = await auth();
       if (authCode != null) {
         _token = authCode;
         GraphQLService.init(token: _token);
@@ -50,7 +50,7 @@ class TokenInterceptors extends InterceptorsWrapper {
   }
 
   /// Authorizetion
-  authorize() async {
+  auth() async {
     String token = await storage.get(Conf.TOKEN_KEY);
     if (token == null) {
       String basic = await storage.get(Conf.USER_BASIC_CODE);
@@ -68,7 +68,7 @@ class TokenInterceptors extends InterceptorsWrapper {
   }
 
   /// Cancel authorizetion
-  deauthorize() {
+  cancleAuth() {
     this._token = null;
     //! Delete the local token
     storage.remove(Conf.TOKEN_KEY);

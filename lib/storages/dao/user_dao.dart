@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../app/conf.dart';
 import '../../app/dlog.dart';
 import '../../app/ignore_conf.dart';
+import '../../app/network/addr.dart';
 import '../../app/network/http_service.dart';
-import '../../app/network/ip_service.dart';
 import '../../blocs/oauth/oauth_bloc.dart';
 import '../../blocs/oauth/oauth_event.dart';
 import '../../db/user_db_provider.dart';
@@ -21,11 +21,12 @@ class UserDao {
   UserDao(this.storage);
 
   ///
-  Future<DaoRes> oAuth(context, String code) async {
-    HttpService.instance.deauthorize();
+  Future<DaoRes> auth(context, String code) async {
+    HttpService.instance.cancleAuth();
+
     var url = "https://github.com/login/oauth/access_token?"
-        "client_id=${OAConf.CLIENT_ID}"
-        "&client_secret=${OAConf.CLIENT_SECRET}"
+        "client_id=${IgnoreConf.CLIENT_ID}"
+        "&client_secret=${IgnoreConf.CLIENT_SECRET}"
         "&code=$code";
 
     var res = await HttpService.instance.fetch(url, null, null, null);
@@ -60,13 +61,14 @@ class UserDao {
     var params = <String, dynamic>{
       "scopes": ['user', 'repo', 'gist', 'notifications'],
       "note": "admin_script",
-      "client_id": OAConf.CLIENT_ID,
-      "client_secret": OAConf.CLIENT_SECRET,
+      "client_id": IgnoreConf.CLIENT_ID,
+      "client_secret": IgnoreConf.CLIENT_SECRET,
     };
     //
-    HttpService.instance.deauthorize();
+    HttpService.instance.cancleAuth();
+
     var res = await HttpService.instance.fetch(
-      IpService.authorization(),
+      Addr.authorization(),
       json.encode(params),
       null,
       new Options(method: 'post'),
@@ -88,7 +90,7 @@ class UserDao {
 
   /// Clear all informations in the local of user when logout.
   Future<void> logOut(context) async {
-    HttpService.instance.deauthorize();
+    HttpService.instance.cancleAuth();
     storage.remove(Conf.USER_INFO_KEY);
     //
     BlocProvider.of<OAuthBloc>(context).add(LoggedOut());
@@ -99,10 +101,7 @@ class UserDao {
     var provider = new UserDBProvider();
 
     next() async {
-      var url = (userName == null || userName.isEmpty) 
-          ? IpService.user() 
-          : IpService.users(userName);
-      
+      var url = (userName == null || userName.isEmpty) ? Addr.user() : Addr.users(userName);
       var res = await HttpService.instance.fetch(url, null, null, null);
 
       if (res != null && res.result) {
@@ -148,7 +147,7 @@ class UserDao {
   ///
   Future<DaoRes> getUserStaredCount(String userName) async {
     var res = await HttpService.instance.fetch(
-      IpService.userStar(userName, null) + '&per_page=1', 
+      Addr.userStar(userName, null) + '&per_page=1', 
       null, 
       null, 
       null

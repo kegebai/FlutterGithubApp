@@ -24,23 +24,23 @@ class DateTimeUtils {
     /// Internal function
     String _fmt(int t, double dt) => (t / dt).round().toString();
 
-    if (subTimes < TimeCons.MILLIS) {
+    if (subTimes < TimeCons.millis) {
       return (Cons.curLocale != null) ? (isNotZH ? "right now" : "刚刚") : "刚刚";
     } 
-    else if (subTimes < TimeCons.SECONDS) {
-      return _fmt(subTimes, TimeCons.MILLIS) +
+    else if (subTimes < TimeCons.seconds) {
+      return _fmt(subTimes, TimeCons.millis) +
           ((Cons.curLocale != null) ? (isNotZH ? " seconds ago" : " 秒前") : " 秒前");
     } 
-    else if (subTimes < TimeCons.MINUTES) {
-      return _fmt(subTimes, TimeCons.SECONDS) +
+    else if (subTimes < TimeCons.minutes) {
+      return _fmt(subTimes, TimeCons.seconds) +
           ((Cons.curLocale != null) ? (isNotZH ? " min ago" : " 分钟前") : " 分钟前");
     } 
-    else if (subTimes < TimeCons.HOURS) {
-      return _fmt(subTimes, TimeCons.MINUTES) +
+    else if (subTimes < TimeCons.hours) {
+      return _fmt(subTimes, TimeCons.minutes) +
           ((Cons.curLocale != null) ? (isNotZH ? " hours ago" : " 小时前") : " 小时前");
     } 
-    else if (subTimes < TimeCons.DAYS) {
-      return _fmt(subTimes, TimeCons.HOURS) +
+    else if (subTimes < TimeCons.days) {
+      return _fmt(subTimes, TimeCons.hours) +
           ((Cons.curLocale != null) ? (isNotZH ? " days ago" : " 天前") : " 天前");
     } 
     else {

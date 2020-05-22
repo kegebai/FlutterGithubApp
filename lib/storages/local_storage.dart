@@ -4,8 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../app/conf.dart';
 import '../app/cons.dart';
 import '../blocs/global/global_state.dart';
-import '../models/user.dart';
-
 class LocalStorage {
   final MaterialColor color;
   final String language;

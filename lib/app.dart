@@ -5,12 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import './app/router.dart';
 import './blocs/oauth/oauth_bloc.dart';
 import './blocs/oauth/oauth_state.dart';
-import './blocs/oauth/oauth_event.dart';
 import './blocs/global/global_bloc.dart';
 import './blocs/global/global_state.dart';
 import './generated/i18n.dart';
-import './repositories/itf/user_repository.dart';
-import './pages/login/login_page.dart';
 import './pages/splash/zfjtl_splash.dart';
 
 class App extends StatefulWidget {

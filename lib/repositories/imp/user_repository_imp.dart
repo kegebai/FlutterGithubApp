@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 import '../../app/conf.dart';
@@ -23,9 +21,9 @@ class UserRepositoryImp implements UserRepository {
   }
 
   @override
-  Future<void> oAuth(BuildContext ctx) async {
+  Future<void> auth(BuildContext ctx) async {
     var code = await storage.get(Conf.USER_BASIC_CODE);
-    await _dao.oAuth(ctx, code);
+    await _dao.auth(ctx, code);
   }
 
   @override

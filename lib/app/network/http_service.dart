@@ -106,8 +106,8 @@ class HttpService {
   }
 
   /// Authorization
-  authorize() async => _tokenInterceptors.authorize();
+  auth() async => _tokenInterceptors.auth();
 
   /// Cancel authorization
-  deauthorize() => _tokenInterceptors.deauthorize();
+  cancleAuth() => _tokenInterceptors.cancleAuth();
 }

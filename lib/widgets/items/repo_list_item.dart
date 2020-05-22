@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_github_app/generated/i18n.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../app/func.dart';
 import '../../models/repo.dart';
