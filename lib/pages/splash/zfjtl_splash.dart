@@ -6,7 +6,7 @@ import '../../app/router.dart';
 import '../../blocs/oauth/oauth_bloc.dart';
 import '../../blocs/oauth/oauth_event.dart';
 import '../../blocs/oauth/oauth_state.dart';
-import '../../repositories/itf/user_repository.dart';
+import '../../repositories/interface/user_repository.dart';
 
 class ZfjtlSplash extends StatefulWidget {
   final OAuthState authState;

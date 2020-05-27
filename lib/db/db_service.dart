@@ -16,7 +16,7 @@ import 'package:path/path.dart' as path;
 
 import '../app/dlog.dart';
 import '../models/user.dart';
-import '../repositories/itf/user_repository.dart';
+import '../repositories/interface/user_repository.dart';
 
 class DBService {
   static const _VERSION = 1;

@@ -29,7 +29,6 @@ dependencies:
   cached_network_image: ^2.0.0
   #
   android_intent: ^0.3.7+2
-
   # Fixed version
   rxdart: 0.23.1
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app/conf.dart';
-import './../itf/user_repository.dart';
+import './../interface/user_repository.dart';
 import '../../models/user.dart';
 import '../../storages/dao/user_dao.dart';
 import '../../storages/local_storage.dart';

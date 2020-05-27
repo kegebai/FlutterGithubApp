@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_github_app/repositories/itf/user_repository.dart';
+
+import '../../repositories/interface/user_repository.dart';
 
 abstract class OAuthState extends Equatable {
   const OAuthState();

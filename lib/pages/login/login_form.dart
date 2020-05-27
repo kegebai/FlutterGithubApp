@@ -7,7 +7,7 @@ import '../../blocs/oauth/oauth_event.dart';
 import '../../blocs/login/login_bloc.dart';
 import '../../blocs/login/login_event.dart';
 import '../../blocs/login/login_state.dart';
-import '../../repositories/itf/user_repository.dart';
+import '../../repositories/interface/user_repository.dart';
 
 class LoginForm extends StatefulWidget {
   final UserRepository userRepo;
@@ -95,8 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 20),
                           child: Center(
-                            child: Image.asset('assets/images/Octocat.png',
-                                height: 200),
+                            child: Image.asset('assets/images/Octocat.png', height: 200),
                           ),
                         ),
                         TextFormField(

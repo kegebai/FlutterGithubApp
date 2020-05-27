@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../app/dlog.dart';
 import '../../app/utils/validators.dart';
-import '../../repositories/itf/user_repository.dart';
+import '../../repositories/interface/user_repository.dart';
 
 import './login_event.dart';
 import './login_state.dart';

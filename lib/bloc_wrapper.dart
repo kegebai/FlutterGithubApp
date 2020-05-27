@@ -5,7 +5,7 @@ import './blocs/oauth/oauth_bloc.dart';
 import './blocs/oauth/oauth_event.dart';
 import './blocs/global/global_bloc.dart';
 import './blocs/global/global_event.dart';
-import './repositories/itf/user_repository.dart';
+import './repositories/interface/user_repository.dart';
 import './storages/local_storage.dart';
 
 class BlocWrapper extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './oauth_event.dart';
 import './oauth_state.dart';
-import '../../repositories/itf/user_repository.dart';
+import '../../repositories/interface/user_repository.dart';
 
 class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
   final UserRepository userRepo;
