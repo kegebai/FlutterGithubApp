@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 @immutable
 class LoginState {
-  final bool isEmailValid;
-  final bool isPwdValid;
+  final bool isUsernameValid;
+  final bool isPasswordValid;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
-  bool get isFormValid => isEmailValid && isPwdValid;
+  bool get isFormValid => isUsernameValid && isPasswordValid;
 
   LoginState({
-    @required this.isEmailValid,
-    @required this.isPwdValid,
+    @required this.isUsernameValid,
+    @required this.isPasswordValid,
     @required this.isSubmitting,
     @required this.isSuccess,
     @required this.isFailure,
@@ -20,8 +20,8 @@ class LoginState {
 
   factory LoginState.empty() {
     return LoginState(
-      isEmailValid: true,
-      isPwdValid: true,
+      isUsernameValid: true,
+      isPasswordValid: true,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -30,8 +30,8 @@ class LoginState {
 
   factory LoginState.loading() {
     return LoginState(
-      isEmailValid: true,
-      isPwdValid: true,
+      isUsernameValid: true,
+      isPasswordValid: true,
       isSubmitting: true,
       isSuccess: false,
       isFailure: false,
@@ -40,8 +40,8 @@ class LoginState {
 
   factory LoginState.failure() {
     return LoginState(
-      isEmailValid: true,
-      isPwdValid: true,
+      isUsernameValid: true,
+      isPasswordValid: true,
       isSubmitting: false,
       isSuccess: false,
       isFailure: true,
@@ -50,8 +50,8 @@ class LoginState {
 
   factory LoginState.success() {
     return LoginState(
-      isEmailValid: true,
-      isPwdValid: true,
+      isUsernameValid: true,
+      isPasswordValid: true,
       isSubmitting: false,
       isSuccess: true,
       isFailure: false,
@@ -59,12 +59,12 @@ class LoginState {
   }
 
   LoginState update({
-    bool isEmailValid,
-    bool isPwdValid,
+    bool isUsernameValid,
+    bool isPasswordValid,
   }) {
     return copyWith(
-      isEmailValid: isEmailValid,
-      isPwdValid: isPwdValid,
+      isUsernameValid: isUsernameValid,
+      isPasswordValid: isPasswordValid,
       isSubmitting: false,
       isSuccess: false,
       isFailure: false,
@@ -72,16 +72,16 @@ class LoginState {
   }
 
   LoginState copyWith({
-    bool isEmailValid,
-    bool isPwdValid,
+    bool isUsernameValid,
+    bool isPasswordValid,
     bool isSubmitEnabled,
     bool isSubmitting,
     bool isSuccess,
     bool isFailure,
   }) {
     return LoginState(
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isPwdValid: isPwdValid ?? this.isPwdValid,
+      isUsernameValid: isUsernameValid ?? this.isUsernameValid,
+      isPasswordValid: isPasswordValid ?? this.isPasswordValid,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
@@ -91,8 +91,8 @@ class LoginState {
   @override
   String toString() {
     return '''LoginState {
-      isEmailValid: $isEmailValid,
-      isPwdValid: $isPwdValid,      
+      isUsernameValid: $isUsernameValid,
+      isPasswordValid: $isPasswordValid,      
       isSubmitting: $isSubmitting,
       isSuccess: $isSuccess,
       isFailure: $isFailure,

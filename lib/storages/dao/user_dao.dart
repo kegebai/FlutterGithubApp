@@ -21,7 +21,7 @@ class UserDao {
   UserDao(this.storage);
 
   ///
-  Future<DaoRes> auth(context, String code) async {
+  Future<DAOResult> auth(context, String code) async {
     HttpService.instance.cancleAuth();
 
     var url = "https://github.com/login/oauth/access_token?"
@@ -45,17 +45,17 @@ class UserDao {
       //
       BlocProvider.of<OAuthBloc>(context).add(LoggedIn());
     }
-    return new DaoRes(resData, res.result);
+    return new DAOResult(resData, res.result);
   }
 
   ///
-  Future<DaoRes> logIn(context, String userName, String pwd) async {
-    Dlog.log(userName);
-    Dlog.log(pwd);
-    var bytes = utf8.encode(userName + ':' + pwd);
+  Future<DAOResult> logIn(context, String username, String password) async {
+    Dlog.log(username);
+    Dlog.log(password);
+    var bytes = utf8.encode(username + ':' + password);
     var base64Str = base64.encode(bytes);
     Dlog.log(base64Str);
-    await storage.save(Conf.USER_NAME_KEY, userName);
+    await storage.save(Conf.USER_NAME_KEY, username);
     await storage.save(Conf.USER_BASIC_CODE, base64Str);
 
     var params = <String, dynamic>{
@@ -76,7 +76,7 @@ class UserDao {
 
     var resData;
     if (res != null && res.result) {
-      await storage.save(Conf.USER_PW_KEY, pwd);
+      await storage.save(Conf.USER_PW_KEY, password);
 
       resData = await getUserInfo(null);
       Dlog.log("# User Result " + resData.result.toString());
@@ -85,23 +85,22 @@ class UserDao {
       //
       BlocProvider.of<OAuthBloc>(context).add(LoggedIn());
     }
-    return new DaoRes(resData, res.result);
+    return new DAOResult(resData, res.result);
   }
 
   /// Clear all informations in the local of user when logout.
   Future<void> logOut(context) async {
     HttpService.instance.cancleAuth();
     storage.remove(Conf.USER_INFO_KEY);
-    //
     BlocProvider.of<OAuthBloc>(context).add(LoggedOut());
   }
 
   ///
-  Future<DaoRes> getUserInfo(String userName, {bool isNeedDB = false}) async {
+  Future<DAOResult> getUserInfo(String username, {bool isNeedDB = false}) async {
     var provider = new UserDBProvider();
 
     next() async {
-      var url = (userName == null || userName.isEmpty) ? Addr.user() : Addr.users(userName);
+      var url = (username == null || username.isEmpty) ? Addr.user() : Addr.users(username);
       var res = await HttpService.instance.fetch(url, null, null, null);
 
       if (res != null && res.result) {
@@ -115,39 +114,39 @@ class UserDao {
         var user = User.fromJson(res.data);
         user.starred = starred;
 
-        if (userName == null || userName.isEmpty) {
+        if (username == null || username.isEmpty) {
           await storage.save(Conf.USER_INFO_KEY, json.encode(user.toJson()));
         }
         if (isNeedDB) {
-          provider.insert(userName, json.encode(user.toJson()));
+          provider.insert(username, json.encode(user.toJson()));
         }
-        return new DaoRes(user, true);
+        return new DAOResult(user, true);
       }
-      return new DaoRes(res.data, false);
+      return new DAOResult(res.data, false);
     }
 
     //
     if (isNeedDB) {
-      var user = await provider.getUserInfo(userName);
-      return user == null ? await next() : new DaoRes(user, true, next: next);
+      var user = await provider.getUserInfo(username);
+      return user == null ? await next() : new DAOResult(user, true, next: next);
     }
     return await next();
   }
 
   ///
-  Future<DaoRes> getLocalUserInfo() async {
+  Future<DAOResult> getLocalUserInfo() async {
     var res = await storage.get(Conf.USER_INFO_KEY);
     if (res == null) {
-      return new DaoRes(null, false);
+      return new DAOResult(null, false);
     }
     var user = User.fromJson(json.decode(res));
-    return new DaoRes(user, true);
+    return new DAOResult(user, true);
   }
 
   ///
-  Future<DaoRes> getUserStaredCount(String userName) async {
+  Future<DAOResult> getUserStaredCount(String username) async {
     var res = await HttpService.instance.fetch(
-      Addr.userStar(userName, null) + '&per_page=1', 
+      Addr.userStar(username, null) + '&per_page=1', 
       null, 
       null, 
       null
@@ -162,13 +161,13 @@ class UserDao {
 
           if (startIndex >= 0 && endIndex >= 0) {
             var count = link.first.substring(startIndex, endIndex);
-            return new DaoRes(count, true);
+            return new DAOResult(count, true);
           }
         }
       } catch (e) {
         Dlog.log(e);
       }
     }
-    return new DaoRes(null, false);
+    return new DAOResult(null, false);
   }
 }

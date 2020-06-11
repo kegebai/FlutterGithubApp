@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './app.dart';
+import './app/app.dart';
 import './app/dlog.dart';
 import './bloc_wrapper.dart';
 import './blocs/debug_bloc_delegate.dart';

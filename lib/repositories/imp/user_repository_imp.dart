@@ -33,8 +33,8 @@ class UserRepositoryImp implements UserRepository {
   }
 
   @override
-  Future<void> signIn(BuildContext ctx, String email, String pwd) async {
-    await _dao.logIn(ctx, email, pwd);
+  Future<void> signIn(BuildContext ctx, String username, String password) async {
+    await _dao.logIn(ctx, username, password);
   }
 
   @override
@@ -43,7 +43,7 @@ class UserRepositoryImp implements UserRepository {
   }
 
   @override
-  Future<void> signUp(BuildContext ctx, String email, String pwd) async {
+  Future<void> signUp(BuildContext ctx, String username, String password) async {
     return null;
   }
 

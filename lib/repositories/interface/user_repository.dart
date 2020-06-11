@@ -10,11 +10,11 @@ abstract class UserRepository {
 
   Future<bool> isSignedIn();
 
-  Future<void> signIn(BuildContext ctx, String email, String pwd);
+  Future<void> signIn(BuildContext ctx, String username, String password);
 
   Future<void> signOut(BuildContext ctx);
 
-  Future<void> signUp(BuildContext ctx, String email, String pwd);
+  Future<void> signUp(BuildContext ctx, String username, String password);
 
   Future<User> getLocalUserInfo();
 }

@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './blocs/global/global_bloc.dart';
-import './blocs/global/global_state.dart';
-import './pages/home/home_page.dart';
-import './pages/dynamic/dynamic_page.dart';
-import './pages/profile/profile_page.dart';
-import './pages/trend/trend_page.dart';
+import '../blocs/global/global_bloc.dart';
+import '../blocs/global/global_state.dart';
+import '../pages/home/home_page.dart';
+import '../pages/dynamic/dynamic_page.dart';
+import '../pages/profile/profile_page.dart';
+import '../pages/trend/trend_page.dart';
 
-class ModuleScaffold extends StatefulWidget {
+class AppScaffold extends StatefulWidget {
   @override
-  _ModuleScaffoldState createState() => new _ModuleScaffoldState();
+  _AppScaffoldState createState() => new _AppScaffoldState();
 }
 
-class _ModuleScaffoldState extends State<ModuleScaffold> {
+class _AppScaffoldState extends State<AppScaffold> {
   int _currentIndex = 0;
 
   @override

@@ -1,12 +1,3 @@
-///
-/// File: db_service.dart
-/// 
-/// Created by kege <kegebai@gmail.com> on 2020-04-30
-/// Copyright © 2020 BLH .inc
-/// 
-/// Code as poetry.
-/// All we can do is our best, and sometimes the best we can do is to start over.
-///
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -53,8 +44,7 @@ class DBService {
       }
 
       ByteData data = await rootBundle.load(path.join('assets/db', _dbName));
-      List<int> bytes =
-          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(dbp).writeAsBytes(bytes, flush: true);
     } else {
       Dlog.log('******* The database already exists *******');
@@ -76,8 +66,7 @@ class DBService {
   static isTableExists(String tableName) async {
     var _database = await db;
         
-    String checkSql =
-        "select * from Sqlite_master where type = 'table' and name = '$tableName'";
+    String checkSql = "select * from Sqlite_master where type = 'table' and name = '$tableName'";
     var res = await _database.rawQuery(checkSql);
 
     return null != res && res.length > 0;

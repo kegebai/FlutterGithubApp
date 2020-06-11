@@ -19,15 +19,15 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final TextEditingController _emailController = new TextEditingController();
-  final TextEditingController _pwdController = new TextEditingController();
+  final TextEditingController _usernameController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
 
   LoginBloc _loginBloc;
 
   UserRepository get userRepos => widget.userRepo;
 
   bool get isPopulated =>
-      _emailController.text.isNotEmpty && _pwdController.text.isNotEmpty;
+      _usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty;
 
   bool isLoginButtonEnabled(LoginState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
@@ -38,8 +38,8 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
 
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-    _emailController.addListener(_onEmailChanged);
-    _pwdController.addListener(_onPwdChanged);
+    _usernameController.addListener(_onUsernameChanged);
+    _passwordController.addListener(_onPasswordChanged);
   }
 
   @override
@@ -82,7 +82,7 @@ class _LoginFormState extends State<LoginForm> {
               }
               if (state.isSuccess) {
                 BlocProvider.of<OAuthBloc>(context).add(LoggedIn());
-                Navigator.of(context).pushReplacementNamed(Router.module_scaffold);
+                Navigator.of(context).pushReplacementNamed(Router.app_scaffold);
               }
             },
             child: BlocBuilder<LoginBloc, LoginState>(
@@ -99,20 +99,20 @@ class _LoginFormState extends State<LoginForm> {
                           ),
                         ),
                         TextFormField(
-                          controller: _emailController,
+                          controller: _usernameController,
                           decoration: InputDecoration(
                             icon: Icon(Icons.email),
-                            labelText: 'Email',
+                            labelText: 'Username',
                           ),
                           keyboardType: TextInputType.emailAddress,
                           autovalidate: true,
                           autocorrect: false,
                           validator: (_) {
-                            return !state.isEmailValid ? 'Invalid Email' : null;
+                            return !state.isUsernameValid ? 'Invalid Username' : null;
                           },
                         ),
                         TextFormField(
-                          controller: _pwdController,
+                          controller: _passwordController,
                           decoration: InputDecoration(
                             icon: Icon(Icons.lock),
                             labelText: 'Password',
@@ -121,7 +121,7 @@ class _LoginFormState extends State<LoginForm> {
                           autovalidate: true,
                           autocorrect: false,
                           validator: (_) {
-                            return !state.isPwdValid ? 'Invalid Password' : null;
+                            return !state.isPasswordValid ? 'Invalid Password' : null;
                           },
                         ),
                         Padding(
@@ -153,21 +153,21 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _pwdController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  void _onEmailChanged() => _loginBloc.add(EmailChanged(_emailController.text));
+  void _onUsernameChanged() => _loginBloc.add(UsernameChanged(_usernameController.text));
 
-  void _onPwdChanged() => _loginBloc.add(PwdChanged(_pwdController.text));
+  void _onPasswordChanged() => _loginBloc.add(PasswordChanged(_passwordController.text));
 
   void _onFormSubmitted() {
     _loginBloc.add(
       LogIn(
         context,
-        email: _emailController.text,
-        pwd: _pwdController.text,
+        username: _usernameController.text,
+        password: _passwordController.text,
       ),
     );
   }

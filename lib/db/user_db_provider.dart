@@ -2,15 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_github_app/app/codec.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-import './db_service.dart';
 import './db_provider.dart';
 import '.././models/user.dart';
 
 class UserDBProvider extends DBProvider {
-  final String tbName = 'User';
-  final String columnId = '_id';
-  final String columnUsername = 'username';
-  final String columnData = 'data';
+  static final String tbName = 'User';
+  static final String columnId = '_id';
+  static final String columnUsername = 'username';
+  static final String columnData = 'data';
 
   int id;
   String username;
@@ -23,17 +22,6 @@ class UserDBProvider extends DBProvider {
     username = map[columnUsername];
     data = map[columnData];
   }
-
-  @override
-  sqlString() =>
-      baseSqlString(tbName, columnId) +
-      '''
-      $columnUsername text non null,
-      $columnData text non null
-      ''';
-
-  @override
-  tableName() => tbName;
 
   Map<String, dynamic> _toMap(String username, String data) {
     Map<String, dynamic> map = {
@@ -61,7 +49,7 @@ class UserDBProvider extends DBProvider {
   }
 
   Future insert(String username, String event) async {
-    var db = await DBService.db;
+    var db = await open();
     var userpd = await _userProvider(db, username);
     if (userpd != null) {
       await db.delete(
@@ -74,7 +62,7 @@ class UserDBProvider extends DBProvider {
   }
 
   Future<User> getUserInfo(String username) async {
-    var db = await DBService.db;
+    var db = await open();
     var userpd = await _userProvider(db, username);
     if (userpd != null) {
       var data = await compute(
@@ -86,4 +74,14 @@ class UserDBProvider extends DBProvider {
     return null;
   }
 
+  @override
+  sqlString() => ''' 
+  create table $tableName (
+    $columnId integer primary key autoincremnt,
+    $columnUsername text non null,
+    $columnData text non null
+    ''';
+
+  @override
+  tableName() => tbName;
 }

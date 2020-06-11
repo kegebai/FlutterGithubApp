@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import './app/router.dart';
-import './blocs/oauth/oauth_bloc.dart';
-import './blocs/oauth/oauth_state.dart';
-import './blocs/global/global_bloc.dart';
-import './blocs/global/global_state.dart';
-import './generated/i18n.dart';
-import './pages/splash/zfjtl_splash.dart';
+import './router.dart';
+import '../blocs/oauth/oauth_bloc.dart';
+import '../blocs/oauth/oauth_state.dart';
+import '../blocs/global/global_bloc.dart';
+import '../blocs/global/global_state.dart';
+import '../generated/i18n.dart';
+import '../pages/splash/zfjtl_splash.dart';
 
 class App extends StatefulWidget {
   const App();
@@ -35,6 +35,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GlobalBloc, GlobalState>(builder: (_, gState) {
+      //Dlog.log(I18n.of(context).app_name);
       return MaterialApp(
         ///
         localizationsDelegates: [
@@ -45,7 +46,7 @@ class _AppState extends State<App> {
         ],
         supportedLocales: i18n.supportedLocales,
         ///
-        title: I18n.of(context).app_name,
+        title: "FlutterGithub",
         ///
         debugShowCheckedModeBanner: false,
         /// 

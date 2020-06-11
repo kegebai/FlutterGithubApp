@@ -8,56 +8,56 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class EmailChanged extends LoginEvent {
-  final String email;
+class UsernameChanged extends LoginEvent {
+  final String username;
 
-  EmailChanged(this.email);
-
-  @override
-  List<Object> get props => [email];
+  UsernameChanged(this.username);
 
   @override
-  String toString() => 'EmailChanged { email: $email }';
+  List<Object> get props => [username];
+
+  @override
+  String toString() => 'UsernameChanged { username: $username }';
 }
 
-class PwdChanged extends LoginEvent {
-  final String pwd;
+class PasswordChanged extends LoginEvent {
+  final String password;
 
-  PwdChanged(this.pwd);
-
-  @override
-  List<Object> get props => [pwd];
+  PasswordChanged(this.password);
 
   @override
-  String toString() => 'PwdChanged { pwd: $pwd }';
+  List<Object> get props => [password];
+
+  @override
+  String toString() => 'PasswordChanged { password: $password }';
 }
 
 class Submitted extends LoginEvent {
-  final String email;
-  final String pwd;
+  final String username;
+  final String password;
   final BuildContext ctx;
 
-  Submitted(this.ctx, this.email, this.pwd);
+  Submitted(this.ctx, this.username, this.password);
 
   @override
-  List<Object> get props => [email, pwd];
+  List<Object> get props => [username, password];
 
   @override
-  String toString() => 'Submitted { email: $email, pwd: $pwd }';
+  String toString() => 'Submitted { username: $username, password: $password }';
 }
 
 // class LoginWithGoogle extends LoginEvent {}
 
 class LogIn extends LoginEvent {
-  final String email;
-  final String pwd;
+  final String username;
+  final String password;
   final BuildContext ctx;
 
-  const LogIn(this.ctx, {@required this.email, @required this.pwd});
+  const LogIn(this.ctx, {@required this.username, @required this.password});
 
   @override
-  List<Object> get props => [email, pwd];
+  List<Object> get props => [username, password];
 
   @override
-  String toString() => 'Login { email: $email, pwd: $pwd }';
+  String toString() => 'Login { username: $username, password: $password }';
 }

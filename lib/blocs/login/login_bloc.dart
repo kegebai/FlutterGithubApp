@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../app/dlog.dart';
-import '../../app/utils/validators.dart';
 import '../../repositories/interface/user_repository.dart';
 
 import './login_event.dart';
@@ -19,14 +18,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is EmailChanged) {
-      yield* _mapEmailChangedToState(event.email);
+    if (event is UsernameChanged) {
+      yield* _mapUsernameChangedToState(event.username);
     } 
-    else if (event is PwdChanged) {
-      yield* _mapPwdChangedToState(event.pwd);
+    else if (event is PasswordChanged) {
+      yield* _mapPasswordChangedToState(event.password);
     } 
     else if (event is LogIn) {
-      yield* _mapLogInToState(ctx: event.ctx, email: event.email, pwd: event.pwd,);
+      yield* _mapLogInToState(ctx: event.ctx, username: event.username, password: event.password,);
     } 
   }
 
@@ -36,11 +35,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     transitionFn,
   ) {
     final nonDebounceStream = events.where((event) {
-      return (event is! EmailChanged && event is! PwdChanged);
+      return (event is! UsernameChanged && event is! PasswordChanged);
     });
 
     final debounceStream = events.where((event) {
-      return (event is EmailChanged || event is PwdChanged);
+      return (event is UsernameChanged || event is PasswordChanged);
     }).debounceTime(Duration(milliseconds: 300));
 
     return super.transformEvents(
@@ -49,22 +48,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
-  Stream<LoginState> _mapEmailChangedToState(String email) async* {
+  Stream<LoginState> _mapUsernameChangedToState(String username) async* {
     yield state.update(
-      isEmailValid: Validators.isValidEmail(email),
+      // isUsernameValid: Validators.isValidEmail(username),
+      isUsernameValid: username.isNotEmpty,
     );
   }
 
-  Stream<LoginState> _mapPwdChangedToState(String pwd) async* {
+  Stream<LoginState> _mapPasswordChangedToState(String password) async* {
     yield state.update(
       // isPwdValid: Validators.isValidPassword(pwd),
-      isPwdValid: pwd.isNotEmpty,
+      isPasswordValid: password.isNotEmpty,
     );
   }
 
-  Stream<LoginState> _mapLogInToState({String email, String pwd, ctx}) async* {
+  Stream<LoginState> _mapLogInToState({ctx, String username, String password}) async* {
     try {
-      await userRepo.signIn(ctx, email, pwd);
+      await userRepo.signIn(ctx, username, password);
       yield LoginState.success();
     } catch (e) {
       Dlog.log(e);

@@ -1,7 +1,7 @@
-class DaoRes {
+class DAOResult {
   var data;
   Function next;
   bool result;
 
-  DaoRes(this.data, this.result, {this.next});
+  DAOResult(this.data, this.result, {this.next});
 }
