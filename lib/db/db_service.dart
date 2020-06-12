@@ -7,7 +7,7 @@ import 'package:path/path.dart' as path;
 
 import '../app/dlog.dart';
 import '../models/user.dart';
-import '../repositories/interface/user_repository.dart';
+import '../repositories/user_repository.dart';
 
 class DBService {
   static const _VERSION = 1;
@@ -25,7 +25,7 @@ class DBService {
     // When user is visitor the database name is `flutter_github_app.db`.
     String _dbName = _NAME;
 
-    User user = await _userRepo.getLocalUserInfo();
+    User user = await _userRepo.loadUserInfo();
     if (user != null && user.login != null) {
       // When user login the database name is `user_flutter_github_app.db`
       _dbName = user.login + '_' + _NAME;

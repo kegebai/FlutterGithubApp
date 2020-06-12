@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './global_event.dart';
 import './global_state.dart';
-import '../../storages/local_storage.dart';
+import '../../app/local_storage.dart';
 
 class GlobalBloc extends Bloc<GlobalEvent, GlobalState> {
   final LocalStorage storage;

@@ -20,7 +20,7 @@ import './interceptors/resp_interceptors.dart';
 import './interceptors/token_interceptors.dart';
 import './net_req_res_data.dart';
 import './resp_code.dart';
-import '../../storages/local_storage.dart';
+import '../../app/local_storage.dart';
 
 class HttpService {
   static const CONTENT_TYPE_JSON = "application/json";

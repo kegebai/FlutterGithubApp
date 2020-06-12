@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_github_app/generated/i18n.dart';
 
-import '../../app/func.dart';
 import '../../models/repo.dart';
+import '../avatar.dart';
 
 class RepoListItem extends StatefulWidget {
   final Repo repo;
@@ -44,7 +44,7 @@ class _RepoListItemState extends State<RepoListItem> {
     var subtitle;
     return ListTile(
       dense: true,
-      leading: rdAvatar(
+      leading: Avatar.setImage(
         widget.repo.owner.avatar_url,
         width: 24.0,
         borderRadius: BorderRadius.circular(12),

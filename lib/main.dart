@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './app/app.dart';
 import './app/dlog.dart';
+import './app/local_storage.dart';
 import './bloc_wrapper.dart';
 import './blocs/debug_bloc_delegate.dart';
 import './pages/error_page.dart';
 import './repositories/imp/user_repository_imp.dart';
-import './storages/local_storage.dart';
 
 void main() {
   BlocSupervisor.delegate = DebugBlocDelegate();
@@ -25,8 +25,8 @@ void main() {
           details.stack,
         );
         return ErrorPage(
-          message: details.exception.toString() + '\n' + details.stack.toString(), 
-          details: details,
+          errMsg: details.exception.toString() + '\n' + details.stack.toString(), 
+          errDetails: details,
         );
       };
       runApp(

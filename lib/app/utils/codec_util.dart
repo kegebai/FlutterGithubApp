@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 /// The `compute` of `isolate` requires a static method.
-class Codec {
+class CodecUtil {
   static List<dynamic> decodeList(String data) {
     return json.decode(data);
   }

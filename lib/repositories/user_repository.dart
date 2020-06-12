@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
+import '../models/user.dart';
 
 abstract class UserRepository {
   Future<bool> isAuthed();
@@ -16,5 +16,5 @@ abstract class UserRepository {
 
   Future<void> signUp(BuildContext ctx, String username, String password);
 
-  Future<User> getLocalUserInfo();
+  Future<User> loadUserInfo();
 }

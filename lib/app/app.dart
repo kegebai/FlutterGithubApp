@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import './router.dart';
-import '../blocs/oauth/oauth_bloc.dart';
-import '../blocs/oauth/oauth_state.dart';
+import '../blocs/auth/auth_bloc.dart';
+import '../blocs/auth/auth_state.dart';
 import '../blocs/global/global_bloc.dart';
 import '../blocs/global/global_state.dart';
 import '../generated/i18n.dart';
@@ -57,7 +57,7 @@ class _AppState extends State<App> {
           fontFamily: gState.storage.fontFamily,
         ),
         ///
-        home: BlocBuilder<OAuthBloc, OAuthState>(
+        home: BlocBuilder<AuthBloc, AuthState>(
           builder: (ctx, authState) {
             // if (authState is UnOAuthed) {
             //   return LoginPage();

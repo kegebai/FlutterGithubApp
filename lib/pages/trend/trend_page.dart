@@ -8,7 +8,9 @@ class TrendPage extends StatefulWidget {
 class _TrendPageState extends State<TrendPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      appBar: AppBar(title: Text('Trend')),
+      body: Center(child: Text('趋势', style: TextStyle(color: Colors.green, fontSize: 20),),),
+    );
   }
 }

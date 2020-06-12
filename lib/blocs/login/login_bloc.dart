@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../app/dlog.dart';
-import '../../repositories/interface/user_repository.dart';
+import '../../repositories/user_repository.dart';
 
 import './login_event.dart';
 import './login_state.dart';
@@ -25,7 +25,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapPasswordChangedToState(event.password);
     } 
     else if (event is LogIn) {
-      yield* _mapLogInToState(ctx: event.ctx, username: event.username, password: event.password,);
+      yield* _mapLogInToState(
+        ctx: event.ctx, 
+        username: event.username, 
+        password: event.password
+      );
     } 
   }
 

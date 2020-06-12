@@ -1,19 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './oauth_event.dart';
-import './oauth_state.dart';
-import '../../repositories/interface/user_repository.dart';
+import './auth_event.dart';
+import './auth_state.dart';
+import '../../repositories/user_repository.dart';
 
-class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository userRepo;
 
-  OAuthBloc(this.userRepo) : assert(userRepo != null);
+  AuthBloc(this.userRepo) : assert(userRepo != null);
 
   @override
-  OAuthState get initialState => UnInitialized();
+  AuthState get initialState => UnInitialized();
 
   @override
-  Stream<OAuthState> mapEventToState(OAuthEvent event) async* {
+  Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is UnInited) {
       yield* _mapUnInitedToState();
     }
@@ -25,10 +25,10 @@ class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
     }
   }
 
-  Stream<OAuthState> _mapUnInitedToState() async* {
+  Stream<AuthState> _mapUnInitedToState() async* {
     final isSignedIn = await userRepo.isSignedIn();
     if (isSignedIn) {
-      final user = await userRepo.getLocalUserInfo();
+      final user = await userRepo.loadUserInfo();
       yield OAuthed(user.name);
     } 
     else {
@@ -36,12 +36,12 @@ class OAuthBloc extends Bloc<OAuthEvent, OAuthState> {
     }
   }
 
-  Stream<OAuthState> _mapLoggedInToState() async* {
-    final user = await userRepo.getLocalUserInfo();
+  Stream<AuthState> _mapLoggedInToState() async* {
+    final user = await userRepo.loadUserInfo();
     yield OAuthed(user.name);
   }
 
-  Stream<OAuthState> _mapLoggedOutToState() async* {
+  Stream<AuthState> _mapLoggedOutToState() async* {
     yield UnOAuthed(userRepo);
     userRepo.signOut(null);
   }

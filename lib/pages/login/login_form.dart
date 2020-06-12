@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_github_app/widgets/toast.dart';
 
 import '../../app/router.dart';
-import '../../blocs/oauth/oauth_bloc.dart';
-import '../../blocs/oauth/oauth_event.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
 import '../../blocs/login/login_bloc.dart';
 import '../../blocs/login/login_event.dart';
 import '../../blocs/login/login_state.dart';
-import '../../repositories/interface/user_repository.dart';
+import '../../repositories/user_repository.dart';
 
 class LoginForm extends StatefulWidget {
   final UserRepository userRepo;
@@ -52,36 +53,13 @@ class _LoginFormState extends State<LoginForm> {
           child: BlocListener<LoginBloc, LoginState>(
             listener: (context, state) {
               if (state.isFailure) {
-                Scaffold.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(SnackBar(
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Login Failure'),
-                        Icon(Icons.error),
-                      ],
-                    ),
-                    backgroundColor: Theme.of(context).primaryColor,
-                  ));
+                Toast.show(context, 'Login Failure');
               }
               if (state.isSubmitting) {
-                Scaffold.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    SnackBar(
-                      content: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text('Logging In ...'),
-                        ],
-                      ),
-                      // backgroundColor: ,
-                    ),
-                  );
+                Toast.show(context, 'Loading In ...');
               }
               if (state.isSuccess) {
-                BlocProvider.of<OAuthBloc>(context).add(LoggedIn());
+                BlocProvider.of<AuthBloc>(context).add(LoggedIn());
                 Navigator.of(context).pushReplacementNamed(Router.app_scaffold);
               }
             },

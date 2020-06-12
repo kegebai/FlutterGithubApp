@@ -13,7 +13,7 @@ class _DynamicPageState extends State<DynamicPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Following')),
-      body: Center(child: Text('我的', style: TextStyle(color: Colors.green, fontSize: 20),),),
+      body: Center(child: Text('动态', style: TextStyle(color: Colors.green, fontSize: 20),),),
     );
   }
 }

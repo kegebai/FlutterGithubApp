@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-import '../../repositories/interface/user_repository.dart';
+import '../../repositories/user_repository.dart';
 
-abstract class OAuthState extends Equatable {
-  const OAuthState();
+abstract class AuthState extends Equatable {
+  const AuthState();
 
   @override
   List<Object> get props => [];
 }
 
-class UnInitialized extends OAuthState {}
+class UnInitialized extends AuthState {}
 
-class OAuthed extends OAuthState {
+class OAuthed extends AuthState {
   final String displayName;
 
   const OAuthed(this.displayName);
@@ -23,7 +23,7 @@ class OAuthed extends OAuthState {
   String toString() => 'OAuthed { displayName: $displayName }';
 }
 
-class UnOAuthed extends OAuthState {
+class UnOAuthed extends AuthState {
   final UserRepository userRepo;
 
   const UnOAuthed(this.userRepo);

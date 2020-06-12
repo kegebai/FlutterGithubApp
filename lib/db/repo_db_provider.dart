@@ -3,21 +3,21 @@ import 'package:sqflite/sqflite.dart';
 
 import '../app/utils/codec_util.dart';
 import './db_provider.dart';
-import '.././models/user.dart';
+import '../models/repo.dart';
 
-class UserDBProvider extends DBProvider {
-  static final String tbName = 'User';
-  // static final String columnId = '_id';
-  // static final String columnUsername = 'username';
-  // static final String columnData = 'data';
+class RepoDBProvider extends DBProvider {
+  static final String tbName = "Repos";
+  // static final String columnId = "_id";
+  // static final String columnUsername = "username";
+  // static final String columnData = "data";
 
   int id;
   String username;
   String data;
 
-  UserDBProvider();
+  RepoDBProvider();
 
-  UserDBProvider.fromMap(Map map) {
+  RepoDBProvider.fromMap(Map map) {
     id = map[columnId];
     username = map[columnUsername];
     data = map[columnData];
@@ -35,16 +35,18 @@ class UserDBProvider extends DBProvider {
   }
 
   // @override
-  // sqlString() => ''' 
+  // String sqlString() {
+  //   return '''
   //   CREATE TABLE $tableName (
   //     $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
   //     $columnUsername text non null,
   //     $columnData text non null
   //   );
-  // ''';
+  //   ''';
+  // }
 
   @override
-  tableName() => tbName;
+  String tableName() => tbName;
 
   Future _getProvider(Database db, String name) async {
     List<Map<String, dynamic>> maps = await db.query(
@@ -54,7 +56,7 @@ class UserDBProvider extends DBProvider {
       whereArgs: [name],
     );
     if (maps.isNotEmpty) {
-      return UserDBProvider.fromMap(maps.first);
+      return RepoDBProvider.fromMap(maps.first);
     }
     return null;
   }
@@ -72,33 +74,22 @@ class UserDBProvider extends DBProvider {
     return await db.insert(tbName, _toMap(name, event));
   }
 
-  Future<int> update(String name, String event) async {
-    var db = await open();
-    return await db.update(tbName, _toMap(name, event));
-  }
-
-  Future<int> delete(String name) async {
+  Future<List<Repo>> getRepos(String name) async {
     var db = await open();
     var provider = await _getProvider(db, name);
     if (provider != null) {
-      return await db.delete(
-        tbName, 
-        where: '$columnUsername = ?',
-        whereArgs: [name],
-      );
-    }
-    return db.delete(tbName);
-  }
-
-  Future<User> getUser(String name) async {
-    var db = await open();
-    var provider = await _getProvider(db, name);
-    if (provider != null) {
-      var data = await compute(
-        CodecUtil.decodeMap,
+      List<Repo> list = new List();
+      List<dynamic> items = await compute (
+        CodecUtil.decodeList,
         provider.data as String,
       );
-      return User.fromJson(data);
+
+      if (items.isNotEmpty) {
+        for (var item in items) {
+          list.add(Repo.fromJson(item));
+        }
+        return list;
+      }
     }
     return null;
   }

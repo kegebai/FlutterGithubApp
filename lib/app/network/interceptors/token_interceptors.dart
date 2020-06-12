@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import '../../dlog.dart';
 import '../../conf.dart';
 import '../graphql/graphql_service.dart';
-import '../../../storages/local_storage.dart';
+import '../../../app/local_storage.dart';
 
 class TokenInterceptors extends InterceptorsWrapper {
   final LocalStorage storage;

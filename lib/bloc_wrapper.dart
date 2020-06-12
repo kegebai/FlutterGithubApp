@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './blocs/oauth/oauth_bloc.dart';
-import './blocs/oauth/oauth_event.dart';
+import './app/local_storage.dart';
+import './blocs/auth/auth_bloc.dart';
+import './blocs/auth/auth_event.dart';
+import './blocs/home/home_bloc.dart';
+import './blocs/home/home_event.dart';
 import './blocs/global/global_bloc.dart';
 import './blocs/global/global_event.dart';
-import './repositories/interface/user_repository.dart';
-import './storages/local_storage.dart';
+import './repositories/imp/repo_repository_imp.dart';
+import './repositories/user_repository.dart';
 
 class BlocWrapper extends StatelessWidget {
   final LocalStorage storage;
@@ -23,8 +26,11 @@ class BlocWrapper extends StatelessWidget {
         BlocProvider<GlobalBloc>(
           create: (_) => GlobalBloc(storage)..add(LoadApp()),
         ),
-        BlocProvider<OAuthBloc>(
-          create: (context) => OAuthBloc(userRepo)..add(UnInited()),
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(userRepo)..add(UnInited()),
+        ),
+        BlocProvider<HomeBloc>(
+          create: (_) => HomeBloc(repository: new RepoRepositoryImp())..add(Fetch()),
         ),
       ], 
       child: child,

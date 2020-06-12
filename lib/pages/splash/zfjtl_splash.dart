@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app/router.dart';
-import '../../blocs/oauth/oauth_bloc.dart';
-import '../../blocs/oauth/oauth_event.dart';
-import '../../blocs/oauth/oauth_state.dart';
-import '../../repositories/interface/user_repository.dart';
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
+import '../../blocs/auth/auth_state.dart';
+import '../../repositories/user_repository.dart';
 
 class ZfjtlSplash extends StatefulWidget {
-  final OAuthState authState;
+  final AuthState authState;
   final UserRepository userRepo;
 
   ZfjtlSplash({
@@ -84,7 +84,7 @@ class _ZfjtlSplashState extends State<ZfjtlSplash> with TickerProviderStateMixin
             Navigator.of(context).pushReplacementNamed(Router.app_scaffold);
           } 
           if (widget.authState is UnOAuthed) {
-            BlocProvider.of<OAuthBloc>(context).add(UnInited());
+            BlocProvider.of<AuthBloc>(context).add(UnInited());
             Navigator.of(context).pushReplacementNamed(Router.login);
           }
         }

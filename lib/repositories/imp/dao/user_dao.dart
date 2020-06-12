@@ -3,17 +3,17 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../app/conf.dart';
-import '../../app/dlog.dart';
-import '../../app/ignore_conf.dart';
-import '../../app/network/addr.dart';
-import '../../app/network/http_service.dart';
-import '../../blocs/oauth/oauth_bloc.dart';
-import '../../blocs/oauth/oauth_event.dart';
-import '../../db/user_db_provider.dart';
-import '../../models/user.dart';
-import '../../storages/dao/dao_res.dart';
-import '../../storages/local_storage.dart';
+import '../dao/dao_result.dart';
+import '../../../app/conf.dart';
+import '../../../app/dlog.dart';
+import '../../../app/ignore_conf.dart';
+import '../../../app/network/addr.dart';
+import '../../../app/network/http_service.dart';
+import '../../../blocs/auth/auth_bloc.dart';
+import '../../../blocs/auth/auth_event.dart';
+import '../../../db/user_db_provider.dart';
+import '../../../models/user.dart';
+import '../../../app/local_storage.dart';
 
 class UserDao {
   final LocalStorage storage;
@@ -38,12 +38,12 @@ class UserDao {
       var token = 'token' + tempToken;
       await storage.save(Conf.TOKEN_KEY, token);
 
-      resData = await getUserInfo(null);
+      resData = await _getUser(null);
       Dlog.log("# User Result " + resData.result.toString());
       Dlog.log(resData.data);
       Dlog.log(res.data.toString());
       //
-      BlocProvider.of<OAuthBloc>(context).add(LoggedIn());
+      BlocProvider.of<AuthBloc>(context).add(LoggedIn());
     }
     return new DAOResult(resData, res.result);
   }
@@ -78,12 +78,12 @@ class UserDao {
     if (res != null && res.result) {
       await storage.save(Conf.USER_PW_KEY, password);
 
-      resData = await getUserInfo(null);
+      resData = await _getUser(null);
       Dlog.log("# User Result " + resData.result.toString());
       Dlog.log(resData.data);
       Dlog.log(res.data.toString());
       //
-      BlocProvider.of<OAuthBloc>(context).add(LoggedIn());
+      BlocProvider.of<AuthBloc>(context).add(LoggedIn());
     }
     return new DAOResult(resData, res.result);
   }
@@ -92,11 +92,11 @@ class UserDao {
   Future<void> logOut(context) async {
     HttpService.instance.cancleAuth();
     storage.remove(Conf.USER_INFO_KEY);
-    BlocProvider.of<OAuthBloc>(context).add(LoggedOut());
+    BlocProvider.of<AuthBloc>(context).add(LoggedOut());
   }
 
   ///
-  Future<DAOResult> getUserInfo(String username, {bool isNeedDB = false}) async {
+  Future<DAOResult> _getUser(String username, {bool isNeedDB = false}) async {
     var provider = new UserDBProvider();
 
     next() async {
@@ -106,7 +106,7 @@ class UserDao {
       if (res != null && res.result) {
         var starred = '-';
         if (res.data['type'] != 'Organization') {
-          var countRes = await getUserStaredCount(res.data['login']);
+          var countRes = await _getUserStaredCount(res.data['login']);
           if (countRes.result) {
             starred = countRes.data;
           }
@@ -127,14 +127,14 @@ class UserDao {
 
     //
     if (isNeedDB) {
-      var user = await provider.getUserInfo(username);
+      var user = await provider.getUser(username);
       return user == null ? await next() : new DAOResult(user, true, next: next);
     }
     return await next();
   }
 
   ///
-  Future<DAOResult> getLocalUserInfo() async {
+  Future<DAOResult> getUserInfo() async {
     var res = await storage.get(Conf.USER_INFO_KEY);
     if (res == null) {
       return new DAOResult(null, false);
@@ -144,7 +144,7 @@ class UserDao {
   }
 
   ///
-  Future<DAOResult> getUserStaredCount(String username) async {
+  Future<DAOResult> _getUserStaredCount(String username) async {
     var res = await HttpService.instance.fetch(
       Addr.userStar(username, null) + '&per_page=1', 
       null, 

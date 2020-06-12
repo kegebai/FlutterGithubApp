@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../storages/local_storage.dart';
+import '../../app/local_storage.dart';
 
 class GlobalState extends Equatable {
   final LocalStorage storage;

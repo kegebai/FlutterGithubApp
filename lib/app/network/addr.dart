@@ -23,5 +23,15 @@ class Addr {
     return "${IpCons.apiHost}users/starred?sort=$sort";
   }
 
+  /// User's repos `get`
+  static userRepos(String userName, String sort) {
+    sort ??= 'pushed';
+    return "${IpCons.apiHost}users/$userName/repos?sort=$sort";
+  }
 
+  /// My repos `get`
+  static repos(String sort) {
+    sort ??= 'pushed';
+    return "${IpCons.apiHost}user/repos?sort=$sort"; 
+  }
 }

@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-import './user.dart';
+import '../../../models/repo.dart';
+import '../../../models/user.dart';
 
-class Repo extends Equatable {
+class RepoPo extends Equatable {
   num id;
   String name;
   String full_name;
@@ -33,7 +34,7 @@ class Repo extends Equatable {
   num subscribers_count;
   Map<String, dynamic> license;
 
-  Repo(
+  RepoPo(
     this.id,
     this.name,
     this.full_name,
@@ -65,44 +66,8 @@ class Repo extends Equatable {
     this.license,
   );
 
-  Repo.empty();
-
-  factory Repo.fromPo(Repo po) {
-    return Repo(
-      po.id, 
-      po.name, 
-      po.full_name, 
-      po.owner, 
-      po.parent, 
-      po.private, 
-      po.html_url, 
-      po.description, 
-      po.fork, 
-      po.homepage, 
-      po.language, 
-      po.forks_count, 
-      po.stargazers_count, 
-      po.watchers_count, 
-      po.size, 
-      po.default_branch, 
-      po.open_issues_count, 
-      po.topics, 
-      po.has_issues, 
-      po.has_projects, 
-      po.has_wiki, 
-      po.has_pages, 
-      po.has_downloads, 
-      po.pushed_at, 
-      po.created_at, 
-      po.updated_at, 
-      po.permissions, 
-      po.subscribers_count, 
-      po.license,
-    );
-  }
-
-  factory Repo.fromJson(Map<String, dynamic> json) {
-    return Repo(
+  factory RepoPo.fromJson(Map<String, dynamic> json) {
+    return RepoPo(
       json['id'] as num,
       json['name'] as String,
       json['full_name'] as String,
@@ -139,68 +104,6 @@ class Repo extends Equatable {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': this.id,
-      'name': this.name,
-      'full_name': this.full_name,
-      'owner': this.owner,
-      'parent': this.parent,
-      'private': this.private,
-      'html_url': this.html_url,
-      'description': this.description,
-      'fork': this.fork,
-      'homepage': this.homepage,
-      'language': this.language,
-      'forks_count': this.forks_count,
-      'stargazers_count': this.stargazers_count,
-      'watchers_count': this.watchers_count,
-      'size': this.size,
-      'default_branch': this.default_branch,
-      'open_issues_count': this.open_issues_count,
-      'topics': this.topics,
-      'has_issues': this.has_issues,
-      'has_projects': this.has_projects,
-      'has_wiki': this.has_wiki,
-      'has_pages': this.has_pages,
-      'has_downloads': this.has_downloads,
-      'pushed_at': this.pushed_at,
-      'created_at': this.created_at,
-      'updated_at': this.updated_at,
-      'permissions': this.permissions,
-      'subscribers_count': this.subscribers_count,
-      'license': this.license,
-    };
-  }
-
   @override
   List<Object> get props => [id];
-}
-
-class License extends Equatable {
-  String name;
-  String key;
-  String url;
-  // String spdx_id;
-  // String node_id;
-
-  License(this.name, this.key, this.url);
-
-  @override
-  List<Object> get props => [name];
-}
-
-class Permissions extends Equatable {
-  bool admin;
-  bool push;
-  bool pull;
-
-  Permissions(
-    this.admin,
-    this.push,
-    this.pull,
-  );
-
-  @override
-  List<Object> get props => [admin];
 }
