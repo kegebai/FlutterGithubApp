@@ -96,11 +96,11 @@ class UserDao {
   }
 
   ///
-  Future<DAOResult> _getUser(String username, {bool isNeedDB = false}) async {
+  Future<DAOResult> _getUser(String userName, {bool isNeedDB = false}) async {
     var provider = new UserDBProvider();
 
     next() async {
-      var url = (username == null || username.isEmpty) ? Addr.user() : Addr.users(username);
+      var url = (userName == null || userName.isEmpty) ? Addr.user() : Addr.users(userName);
       var res = await HttpService.instance.fetch(url, null, null, null);
 
       if (res != null && res.result) {
@@ -114,11 +114,11 @@ class UserDao {
         var user = User.fromJson(res.data);
         user.starred = starred;
 
-        if (username == null || username.isEmpty) {
+        if (userName == null || userName.isEmpty) {
           await storage.save(Conf.USER_INFO_KEY, json.encode(user.toJson()));
         }
         if (isNeedDB) {
-          provider.insert(username, json.encode(user.toJson()));
+          provider.addUser(userName, json.encode(user.toJson()));
         }
         return new DAOResult(user, true);
       }
@@ -127,7 +127,7 @@ class UserDao {
 
     //
     if (isNeedDB) {
-      var user = await provider.getUser(username);
+      var user = await provider.getUser(userName);
       return user == null ? await next() : new DAOResult(user, true, next: next);
     }
     return await next();
@@ -144,9 +144,9 @@ class UserDao {
   }
 
   ///
-  Future<DAOResult> _getUserStaredCount(String username) async {
+  Future<DAOResult> _getUserStaredCount(String userName) async {
     var res = await HttpService.instance.fetch(
-      Addr.userStar(username, null) + '&per_page=1', 
+      Addr.userStar(userName, null) + '&per_page=1', 
       null, 
       null, 
       null

@@ -12,7 +12,7 @@ import '../repositories/user_repository.dart';
 class DBService {
   static const _VERSION = 1;
   static const _NAME = 'flutter_github_app.db';
-    
+
   static Future<Database> get db async => _db ??= await _initDatabase();
 
   static UserRepository _userRepo;
@@ -54,22 +54,28 @@ class DBService {
     //     onCreate: (Database db, int version) async {
     //   // When creating the db, create the table
     //   String createSql =
-    //       'CREATE TABLE Test (id INTEGER PRIMARY KEY, name TEXT, value INTEGER, num REAL)';
+    //       'CREATE TABLE Test (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, value INTEGER, num REAL)';
     //   await db.execute(createSql);
     // });
 
     return await openDatabase(dbp, version: _VERSION, readOnly: true);
   }
 
-  /// According to `'tableName'` to 
+  /// According to `'tableName'` to
   /// determine whether the table exists in the database.
   static isTableExists(String tableName) async {
     var _database = await db;
-        
     String checkSql = "select * from Sqlite_master where type = 'table' and name = '$tableName'";
     var res = await _database.rawQuery(checkSql);
-
     return null != res && res.length > 0;
+  }
+
+  static Future<Database> open(String tableName, String createSql) async {
+    if (!isTableExists(tableName)) {
+      var _database = await db;
+      await _database.execute(createSql);
+    }
+    return await db;
   }
 
   /// Closed the database

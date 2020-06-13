@@ -1,103 +1,83 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_github_app/db/db_service.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../app/utils/codec_util.dart';
-import './db_provider.dart';
 import '.././models/user.dart';
 
-class UserDBProvider extends DBProvider {
-  static final String tbName = 'User';
-  // static final String columnId = '_id';
-  // static final String columnUsername = 'username';
-  // static final String columnData = 'data';
-
+class UserDBProvider {
   int id;
-  String username;
+  String name;
   String data;
+
+  static final String tableName = "t_user";
+  static final String cid = "id";
+  static final String cname = "name";
+  static final String cdata = "data";
+
+  static final String createSql = ''' 
+    CREATE TABLE IF NOT EXISTS $tableName (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name VARCHAR(12) NOT NULL,
+        data VARCHAR(256) NOT NULL,
+        created DATETIME NOT NULL,
+        updated DATETIME NOT NULL 
+    );
+  ''';
 
   UserDBProvider();
 
   UserDBProvider.fromMap(Map map) {
-    id = map[columnId];
-    username = map[columnUsername];
-    data = map[columnData];
+    id = map[cid];
+    name = map[cname];
+    data = map[cdata];
   }
 
   Map<String, dynamic> _toMap(String name, String data) {
-    Map<String, dynamic> map = {
-      columnUsername: name,
-      columnData: data,
-    };
+    Map<String, dynamic> map = {cname: name, cdata: data};
     if (id != null) {
-      map[columnId] = id;
+      map[cid] = id;
     }
     return map;
   }
 
-  // @override
-  // sqlString() => ''' 
-  //   CREATE TABLE $tableName (
-  //     $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-  //     $columnUsername text non null,
-  //     $columnData text non null
-  //   );
-  // ''';
+  Future<UserDBProvider> _getProvider(Database db, String name) async {
+    // String sql = "SELECT * FROM t_user WHERE name = ?";
+    // List<Map<String, dynamic>> maps = await db.rawQuery(sql, [name]);
 
-  @override
-  tableName() => tbName;
+    List<Map<String, dynamic>> maps = await db.query(tableName,
+        columns: [cname, cname, cdata], where: '$cname = ?', whereArgs: [name]);
 
-  Future _getProvider(Database db, String name) async {
-    List<Map<String, dynamic>> maps = await db.query(
-      tbName,
-      columns: [columnId, columnUsername, columnData],
-      where: '$columnUsername = ?',
-      whereArgs: [name],
-    );
-    if (maps.isNotEmpty) {
+    if (maps != null && maps.isNotEmpty) {
       return UserDBProvider.fromMap(maps.first);
     }
     return null;
   }
 
-  Future<int> insert(String name, String event) async {
-    var db = await open();
+  ///
+  Future<int> addUser(String name, String event) async {
+    var db = await DBService.open(tableName, createSql);
     var provider = await _getProvider(db, name);
+
     if (provider != null) {
-      await db.delete(
-        tbName, 
-        where: '$columnUsername = ?',
-        whereArgs: [name],
-      );
+      // String deleteSql = "DELETE FROM t_user WHERE name = ?";
+      // await db.rawDelete(deleteSql, [name]);
+      await db.delete(tableName, where: '$cname = ?', whereArgs: [name]);
     }
-    return await db.insert(tbName, _toMap(name, event));
+
+    // String sql = "INSERT INTO t_user (name, data) VALUES (?, ?)";
+    // return await db.rawInsert(sql, [name, event]);
+
+    return await db.insert(tableName, _toMap(name, event));
   }
 
-  Future<int> update(String name, String event) async {
-    var db = await open();
-    return await db.update(tbName, _toMap(name, event));
-  }
-
-  Future<int> delete(String name) async {
-    var db = await open();
-    var provider = await _getProvider(db, name);
-    if (provider != null) {
-      return await db.delete(
-        tbName, 
-        where: '$columnUsername = ?',
-        whereArgs: [name],
-      );
-    }
-    return db.delete(tbName);
-  }
-
+  ///
   Future<User> getUser(String name) async {
-    var db = await open();
+    var db = await DBService.open(tableName, createSql);
     var provider = await _getProvider(db, name);
+
     if (provider != null) {
-      var data = await compute(
-        CodecUtil.decodeMap,
-        provider.data as String,
-      );
+      var data = await compute(CodecUtil.decodeMap, provider.data);
       return User.fromJson(data);
     }
     return null;
