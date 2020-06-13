@@ -81,7 +81,7 @@ class _ZfjtlSplashState extends State<ZfjtlSplash> with TickerProviderStateMixin
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           if (widget.authState is OAuthed) {
-            Navigator.of(context).pushReplacementNamed(Router.app_scaffold);
+            Navigator.of(context).pushReplacementNamed(Router.home_screen);
           } 
           if (widget.authState is UnOAuthed) {
             BlocProvider.of<AuthBloc>(context).add(UnInited());

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../models/repo.dart';
-import '../../../models/user.dart';
+import '../../models/repo.dart';
+import '../../models/user.dart';
 
 class RepoPo extends Equatable {
   num id;

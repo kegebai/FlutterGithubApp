@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DynamicPage extends StatefulWidget {
+class ActivityPage extends StatefulWidget {
   @override
-  _DynamicPageState createState() => new _DynamicPageState();
+  _ActivityPageState createState() => new _ActivityPageState();
 }
 
-class _DynamicPageState extends State<DynamicPage> with WidgetsBindingObserver {
+class _ActivityPageState extends State<ActivityPage> with WidgetsBindingObserver {
   
   final _controller = new ScrollController();
 

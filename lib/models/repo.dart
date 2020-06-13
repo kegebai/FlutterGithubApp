@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../repositories/imp/po/repo_po.dart';
+import '../repositories/po/repo_po.dart';
 import './user.dart';
 
 class Repo extends Equatable {
@@ -141,7 +141,7 @@ class Repo extends Equatable {
   }
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
+    return <String, dynamic> {
       'id': this.id,
       'name': this.name,
       'full_name': this.full_name,

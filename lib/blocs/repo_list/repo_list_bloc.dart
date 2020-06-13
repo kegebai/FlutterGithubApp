@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -11,7 +10,7 @@ import '../../repositories/repo_repository.dart';
 class RepoListBloc extends Bloc<RepoListEvent, RepoListState> {
   final RepoRepository repository;
 
-  RepoListBloc(@required this.repository);
+  RepoListBloc(this.repository);
 
   @override
   RepoListState get initialState => Loading();

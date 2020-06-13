@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app/conf.dart';
 import './../user_repository.dart';
 import '../../models/user.dart';
-import '../imp/dao/user_dao.dart';
+import '../dao/user_dao.dart';
 import '../../app/local_storage.dart';
 
 class UserRepositoryImp implements UserRepository {

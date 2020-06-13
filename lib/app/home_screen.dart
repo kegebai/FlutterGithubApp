@@ -7,16 +7,16 @@ import 'package:flutter_github_app/generated/i18n.dart';
 import '../blocs/global/global_bloc.dart';
 import '../blocs/global/global_state.dart';
 import '../pages/repo/repo_list_page.dart';
-import '../pages/dynamic/dynamic_page.dart';
+import '../pages/activity/activity_page.dart';
 import '../pages/profile/profile_page.dart';
 import '../pages/trend/trend_page.dart';
 
-class AppScaffold extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _AppScaffoldState createState() => new _AppScaffoldState();
+  _HomeScreenState createState() => new _HomeScreenState();
 }
 
-class _AppScaffoldState extends State<AppScaffold> {
+class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   @override
@@ -34,7 +34,7 @@ class _AppScaffoldState extends State<AppScaffold> {
       index: _currentIndex,
       children: <Widget>[
         RepoListPage(),
-        DynamicPage(),
+        ActivityPage(),
         TrendPage(),
         ProfilePage(),
       ],
@@ -67,7 +67,7 @@ class _AppScaffoldState extends State<AppScaffold> {
                     ),
                     _buildItem(
                       icon: Icons.widgets,
-                      text: I18n.of(context).bnb_title_dynamic,
+                      text: I18n.of(context).bnb_title_activity,
                       index: 1,
                     ),
                     _buildItem(

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_github_app/repositories/imp/po/user_po.dart';
+
+import '../repositories/po/user_po.dart';
 
 class User extends Equatable {
   String login;
@@ -171,7 +172,7 @@ class User extends Equatable {
   }
 
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
+    return <String, dynamic> {
       'login': this.login,
       'id': this.id,
       'node_id': this.node_id,

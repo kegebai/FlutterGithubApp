@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_github_app/pages/login/login_page.dart';
 
-import './app_scaffold.dart';
+import './home_screen.dart';
 import '../pages/splash/zfjtl_splash.dart';
 import './utils/router_utils.dart';
 
 class Router {
   static const String home = '/';
   static const String nav  = 'nav';
-  static const String app_scaffold = 'app_scaffold';
+  static const String home_screen = 'home_screen';
   static const String login = 'login';
   static const String splash = 'splash';
 
@@ -19,8 +19,8 @@ class Router {
         return Top2BottomRouter(child: ZfjtlSplash());
         break;
       // 
-      case app_scaffold:
-        return Left2RightRouter(child: AppScaffold());
+      case home_screen:
+        return Left2RightRouter(child: HomeScreen());
         break;
       //
       case login:

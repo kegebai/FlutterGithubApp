@@ -34,4 +34,14 @@ class Addr {
     sort ??= 'pushed';
     return "${IpCons.apiHost}user/repos?sort=$sort"; 
   }
+
+  /// Event information received by users `get`
+  static receivedEvent(userName) {
+    return "${IpCons.apiHost}users/$userName/received_events";
+  }
+
+  /// Event information of users `get`
+  static event(userName) {
+    return "${IpCons.apiHost}users/$userName/events";
+  }
 }

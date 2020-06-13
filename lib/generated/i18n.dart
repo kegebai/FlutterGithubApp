@@ -35,7 +35,7 @@ class I18n implements WidgetsLocalizations {
   /// "FlutterGithub"
   String get app_name => "FlutterGithub";
   /// "动态"
-  String get bnb_title_dynamic => "动态";
+  String get bnb_title_activity => "动态";
   /// "趋势"
   String get bnb_title_trend => "趋势";
   /// "我的"
@@ -119,7 +119,7 @@ class _I18n_en_US extends I18n {
   String get app_name => "FlutterGithub";
   /// "Dynamic"
   @override
-  String get bnb_title_dynamic => "Dynamic";
+  String get bnb_title_activity => "Dynamic";
   /// "Trending"
   @override
   String get bnb_title_trend => "Trending";

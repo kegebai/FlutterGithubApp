@@ -1,5 +1,5 @@
 import '../../models/repo.dart';
-import '../../repositories/imp/dao/repo_dao.dart';
+import '../../repositories/dao/repo_dao.dart';
 import '../../repositories/repo_repository.dart';
 
 class RepoRepositoryImp implements RepoRepository {

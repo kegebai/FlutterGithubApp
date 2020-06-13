@@ -60,7 +60,7 @@ class _LoginFormState extends State<LoginForm> {
               }
               if (state.isSuccess) {
                 BlocProvider.of<AuthBloc>(context).add(LoggedIn());
-                Navigator.of(context).pushReplacementNamed(Router.app_scaffold);
+                Navigator.of(context).pushReplacementNamed(Router.home_screen);
               }
             },
             child: BlocBuilder<LoginBloc, LoginState>(
