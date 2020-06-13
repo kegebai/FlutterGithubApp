@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 
 import '../../models/repo.dart';
 
-abstract class HomeState extends Equatable {
-  const HomeState();
+abstract class RepoListState extends Equatable {
+  const RepoListState();
 
   @override
   List<Object> get props => [];
 }
 
-class Loading extends HomeState {}
+class Loading extends RepoListState {}
 
-class Loaded extends HomeState {
+class Loaded extends RepoListState {
   final List<Repo> repos;
   final bool hasReachedMax;
 
@@ -32,4 +32,4 @@ class Loaded extends HomeState {
       "Loaded { repos: $repos, hasReachedMax: $hasReachedMax }";
 }
 
-class LoadFailed extends HomeState {}
+class LoadFailed extends RepoListState {}

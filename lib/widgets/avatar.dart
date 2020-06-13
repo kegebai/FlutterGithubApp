@@ -11,7 +11,7 @@ class Avatar {
     BorderRadius borderRadius,
   }) {
     var placeholder =
-        Image.asset("assets/images/github.png", width: width, height: height);
+        Image.asset("assets/images/36686.png", width: width, height: height);
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(2),
       child: CachedNetworkImage(

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../repositories/imp/po/repo_po.dart';
 import './user.dart';
 
 class Repo extends Equatable {
@@ -67,7 +68,7 @@ class Repo extends Equatable {
 
   Repo.empty();
 
-  factory Repo.fromPo(Repo po) {
+  factory Repo.fromPo(RepoPo po) {
     return Repo(
       po.id, 
       po.name, 

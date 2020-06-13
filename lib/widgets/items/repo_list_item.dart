@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_github_app/generated/i18n.dart';
 
+import '../../app/style/zfjtl_tech_shape_border.dart';
+import '../../generated/i18n.dart';
 import '../../models/repo.dart';
 import '../avatar.dart';
 
@@ -16,22 +17,17 @@ class _RepoListItemState extends State<RepoListItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
       child: Material(
-        color: Colors.white,
-        shape: BorderDirectional(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: .5,
-          ),
-        ),
+        color: Theme.of(context).primaryColor.withAlpha(33),
+        shape: ZfjtlTechShapeBorder(color: Theme.of(context).primaryColor),
         child: Padding(
-          padding: const EdgeInsets.only(top: 0.0, bottom: 16),
+          padding: const EdgeInsets.only(top: 0.0, bottom: 16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _buildRepoHeader(), 
-              _buildRepoContent(), 
+              _buildRepoHeader(),
+              _buildRepoContent(),
               _buildRepoBottom()
             ],
           ),
@@ -73,7 +69,7 @@ class _RepoListItemState extends State<RepoListItem> {
             padding: const EdgeInsets.only(top: 8, bottom: 12),
             child: widget.repo.description == null
                 ? Text(
-                    I18n.of(context).no_desc,
+                    I18n.of(context).repo_no_desc,
                     style: TextStyle(
                         fontStyle: FontStyle.italic, color: Colors.grey[700]),
                   )
@@ -95,7 +91,7 @@ class _RepoListItemState extends State<RepoListItem> {
   _buildRepoBottom() {
     const paddingWidth = 10;
     return IconTheme(
-      data: IconThemeData(color: Colors.grey, size: 15,),
+      data: IconThemeData(color: Colors.grey, size: 15),
       child: DefaultTextStyle(
         style: TextStyle(color: Colors.grey, fontSize: 12),
         child: Padding(
@@ -117,13 +113,14 @@ class _RepoListItemState extends State<RepoListItem> {
             ];
 
             if (widget.repo.fork) {
-              children.add(Text("Forked".padRight(paddingWidth)));
+              children.add(
+                  Text(I18n.of(context).repo_forked.padRight(paddingWidth)));
             }
 
             if (widget.repo.private == true) {
               children.addAll(<Widget>[
                 Icon(Icons.lock),
-                Text(" Private".padRight(paddingWidth))
+                Text(I18n.of(context).repo_private.padRight(paddingWidth))
               ]);
             }
             return Row(children: children);

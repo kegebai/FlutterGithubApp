@@ -1,18 +1,16 @@
 {
     "app_name": "FlutterGithub",
-    "ok": "ok",
-    "cancel": "cancel",
-    "empty": "Empty(oﾟ▽ﾟ)o",
-    "licenses": "licenses",
-    "close": "close",
 
-    "no_desc": "No description !",
+    "bnb_title_dynamic": "Dynamic",
+    "bnb_title_trend": "Trending",
+    "bnb_title_profile": "My",
+
+    "desc_empty": "Empty(oﾟ▽ﾟ)o",
 
     "option_copy": "copy",
-
-    "login_text": "Login",
-    "oauth_text": "OAuth",
-    "Login_out": "Logout",
+    "option_ok": "ok",
+    "option_cancel": "cancel",
+    "option_close": "close",
 
     "language_default": "Default",
     "language_zh_CN": "中文",
@@ -22,6 +20,9 @@
     "login_username_hint_text": "username",
     "login_password_hint_text": "password",
     "login_success": "Login Success",
+    "login_text": "Login",
+    "login_out": "Logout",
+    "auth_text": "Auth",
 
     "network_error_401": "Http 401",
     "network_error_403": "Http 403",
@@ -32,8 +33,13 @@
     "network_error": "network error",
     "github_refused": "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ",
 
-    "nothing_now": "Nothing",
     "loading_text": "Loading···",
-    "loadmore_not": "nothing",
-    "loadmore_text": "loading"
+    "load_more_text": "Loading",
+    "load_more_no_more_data": "Nothing",
+    "load_failure": "Load Failed",
+
+    "repo_list_title": "All Repositories",
+    "repo_no_desc": "No more description",
+    "repo_forked": "Forked",
+    "repo_private": "Private"
 }

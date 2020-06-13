@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_github_app/generated/i18n.dart';
 
 import '../blocs/global/global_bloc.dart';
 import '../blocs/global/global_state.dart';
-import '../pages/home/home_page.dart';
+import '../pages/repo/repo_list_page.dart';
 import '../pages/dynamic/dynamic_page.dart';
 import '../pages/profile/profile_page.dart';
 import '../pages/trend/trend_page.dart';
@@ -32,7 +33,7 @@ class _AppScaffoldState extends State<AppScaffold> {
     return IndexedStack(
       index: _currentIndex,
       children: <Widget>[
-        HomePage(),
+        RepoListPage(),
         DynamicPage(),
         TrendPage(),
         ProfilePage(),
@@ -59,35 +60,54 @@ class _AppScaffoldState extends State<AppScaffold> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    _buildItem(icon: Icons.home, text: '首页', index: 0),
-                    _buildItem(icon: Icons.widgets, text: '动态', index: 1),
-                    _buildItem(icon: Icons.trending_up, text: '趋势', index: 2),
-                    _buildItem(icon: Icons.fingerprint, text: '我的', index: 3),
-                  ]
+                    _buildItem(
+                      icon: Icons.home,
+                      text: '首页',
+                      index: 0,
+                    ),
+                    _buildItem(
+                      icon: Icons.widgets,
+                      text: I18n.of(context).bnb_title_dynamic,
+                      index: 1,
+                    ),
+                    _buildItem(
+                      icon: Icons.trending_up,
+                      text: I18n.of(context).bnb_title_trend,
+                      index: 2,
+                    ),
+                    _buildItem(
+                      icon: Icons.fingerprint,
+                      text: I18n.of(context).bnb_title_profile,
+                      index: 3,
+                    ),
+                  ],
                 ),
-              )
-            ]
-          )
-        )
-      )
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
   Widget _buildItem({IconData icon, String text, int index}) {
-    Color color = _currentIndex == index ? Theme.of(context).primaryColor : Colors.grey;
+    Color color =
+        _currentIndex == index ? Theme.of(context).primaryColor : Colors.grey;
     // Color color = _currentIndex == index ? state.color : Colors.grey;
     return Expanded(
       child: InkResponse(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(icon, color: color, size: 22.0),
-            Text(text, style: TextStyle(color: color, fontSize: 10.0))
-          ]
-        ),
-        onTap: () => setState(() => _currentIndex = index)
-      )
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Icon(icon, color: color, size: 22.0),
+              Text(
+                text,
+                style: TextStyle(color: color, fontSize: 10.0),
+              ),
+            ]),
+        onTap: () => setState(() => _currentIndex = index),
+      ),
     );
   }
 }

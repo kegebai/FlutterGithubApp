@@ -4,21 +4,21 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../app/dlog.dart';
 import '../../models/repo.dart';
-import './home_event.dart';
-import './home_state.dart';
+import './repo_list_event.dart';
+import './repo_list_state.dart';
 import '../../repositories/repo_repository.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
+class RepoListBloc extends Bloc<RepoListEvent, RepoListState> {
   final RepoRepository repository;
 
-  HomeBloc({@required this.repository});
+  RepoListBloc(@required this.repository);
 
   @override
-  HomeState get initialState => Loading();
+  RepoListState get initialState => Loading();
 
   @override
-  Stream<Transition<HomeEvent, HomeState>> transformEvents(
-    Stream<HomeEvent> events, 
+  Stream<Transition<RepoListEvent, RepoListState>> transformEvents(
+    Stream<RepoListEvent> events, 
     transitionFn
   ) {
     return super.transformEvents(
@@ -28,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   @override
-  Stream<HomeState> mapEventToState(HomeEvent event) async* {
+  Stream<RepoListState> mapEventToState(RepoListEvent event) async* {
     // if (event is PullDown2Refresh) {
     //   yield* _mapRefreshToState(event);
     // } else if (event is PullUp2LoadMore) {
@@ -37,7 +37,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     yield* _map(event);
   }
 
-  Stream<HomeState> _map(HomeEvent event) async* {
+  Stream<RepoListState> _map(RepoListEvent event) async* {
     final _state = state;
     if (event is Fetch && !_hasReachedMax(_state)) {
       try {
@@ -66,9 +66,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  bool _hasReachedMax(HomeState state) => state is Loaded && state.hasReachedMax;
+  bool _hasReachedMax(RepoListState state) => state is Loaded && state.hasReachedMax;
 
-  Stream<HomeState> _mapRefreshToState(Refresh event) async* {
+  Stream<RepoListState> _mapRefreshToState(Refresh event) async* {
     try {
       int page = 1;
       List<Repo> list = await repository.getRepos(null, page);
@@ -80,7 +80,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  Stream<HomeState> _mapLoadMoreToState(LoadMore event) async* {
+  Stream<RepoListState> _mapLoadMoreToState(LoadMore event) async* {
     try {
       List<Repo> more = await repository.getRepos(null, event.page++);
 

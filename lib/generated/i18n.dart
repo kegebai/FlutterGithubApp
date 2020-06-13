@@ -34,26 +34,22 @@ class I18n implements WidgetsLocalizations {
 
   /// "FlutterGithub"
   String get app_name => "FlutterGithub";
-  /// "确定"
-  String get ok => "确定";
-  /// "取消"
-  String get cancel => "取消";
+  /// "动态"
+  String get bnb_title_dynamic => "动态";
+  /// "趋势"
+  String get bnb_title_trend => "趋势";
+  /// "我的"
+  String get bnb_title_profile => "我的";
   /// "目前什么也没有哟(oﾟ▽ﾟ)o"
-  String get empty => "目前什么也没有哟(oﾟ▽ﾟ)o";
-  /// "协议"
-  String get licenses => "协议";
-  /// "关闭"
-  String get close => "关闭";
-  /// "暂无描述!"
-  String get no_desc => "暂无描述!";
+  String get desc_empty => "目前什么也没有哟(oﾟ▽ﾟ)o";
   /// "复制"
   String get option_copy => "复制";
-  /// "账号登录"
-  String get login_text => "账号登录";
-  /// "安全登录"
-  String get oauth_text => "安全登录";
-  /// "退出登录"
-  String get Login_out => "退出登录";
+  /// "确定"
+  String get option_ok => "确定";
+  /// "取消"
+  String get option_cancel => "取消";
+  /// "关闭"
+  String get option_close => "关闭";
   /// "默认"
   String get language_default => "默认";
   /// "中文"
@@ -68,6 +64,12 @@ class I18n implements WidgetsLocalizations {
   String get login_password_hint_text => "请输入密码";
   /// "登录成功"
   String get login_success => "登录成功";
+  /// "账号登录"
+  String get login_text => "账号登录";
+  /// "退出登录"
+  String get logout_text => "退出登录";
+  /// "安全登录"
+  String get auth_text => "安全登录";
   /// "[401错误可能: 未授权 \ 授权登录失败 \ 登录过期]"
   String get network_error_401 => "[401错误可能: 未授权 \ 授权登录失败 \ 登录过期]";
   /// "403权限错误"
@@ -84,14 +86,22 @@ class I18n implements WidgetsLocalizations {
   String get network_error => "网络错误";
   /// "Github Api 出现异常[Connection refused]，建议换个网络环境或者稍后再试"
   String get github_refused => "Github Api 出现异常[Connection refused]，建议换个网络环境或者稍后再试";
-  /// "目前什么都没有"
-  String get nothing_now => "目前什么都没有";
   /// "努力加载中···"
   String get loading_text => "努力加载中···";
-  /// "没有更多数据"
-  String get loadmore_not => "没有更多数据";
   /// "正在加载更多"
-  String get loadmore_text => "正在加载更多";
+  String get load_more_text => "正在加载更多";
+  /// "没有更多数据"
+  String get load_more_no_more_data => "没有更多数据";
+  /// "加载失败"
+  String get load_failure => "加载失败";
+  /// "所有仓库"
+  String get repo_list_title => "所有仓库";
+  /// "暂无描述!"
+  String get repo_no_desc => "暂无描述!";
+  /// "分支"
+  String get repo_forked => "分支";
+  /// "私有"
+  String get repo_private => "私有";
 }
 
 class _I18n_zh_CN extends I18n {
@@ -107,36 +117,30 @@ class _I18n_en_US extends I18n {
   /// "FlutterGithub"
   @override
   String get app_name => "FlutterGithub";
-  /// "ok"
+  /// "Dynamic"
   @override
-  String get ok => "ok";
-  /// "cancel"
+  String get bnb_title_dynamic => "Dynamic";
+  /// "Trending"
   @override
-  String get cancel => "cancel";
+  String get bnb_title_trend => "Trending";
+  /// "My"
+  @override
+  String get bnb_title_profile => "My";
   /// "Empty(oﾟ▽ﾟ)o"
   @override
-  String get empty => "Empty(oﾟ▽ﾟ)o";
-  /// "licenses"
-  @override
-  String get licenses => "licenses";
-  /// "close"
-  @override
-  String get close => "close";
-  /// "No description !"
-  @override
-  String get no_desc => "No description !";
+  String get desc_empty => "Empty(oﾟ▽ﾟ)o";
   /// "copy"
   @override
   String get option_copy => "copy";
-  /// "Login"
+  /// "ok"
   @override
-  String get login_text => "Login";
-  /// "OAuth"
+  String get option_ok => "ok";
+  /// "cancel"
   @override
-  String get oauth_text => "OAuth";
-  /// "Logout"
+  String get option_cancel => "cancel";
+  /// "close"
   @override
-  String get Login_out => "Logout";
+  String get option_close => "close";
   /// "Default"
   @override
   String get language_default => "Default";
@@ -158,6 +162,12 @@ class _I18n_en_US extends I18n {
   /// "Login Success"
   @override
   String get login_success => "Login Success";
+  /// "Login"
+  @override
+  String get login_text => "Login";
+  /// "Auth"
+  @override
+  String get auth_text => "Auth";
   /// "Http 401"
   @override
   String get network_error_401 => "Http 401";
@@ -182,18 +192,30 @@ class _I18n_en_US extends I18n {
   /// "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later "
   @override
   String get github_refused => "Github Api Error[OS Error: Connection refused]. Please switch networks or try again later ";
-  /// "Nothing"
-  @override
-  String get nothing_now => "Nothing";
   /// "Loading···"
   @override
   String get loading_text => "Loading···";
-  /// "nothing"
+  /// "Loading"
   @override
-  String get loadmore_not => "nothing";
-  /// "loading"
+  String get load_more_text => "Loading";
+  /// "Nothing"
   @override
-  String get loadmore_text => "loading";
+  String get load_more_no_more_data => "Nothing";
+  /// "Load Failed"
+  @override
+  String get load_failure => "Load Failed";
+  /// "All Repositories"
+  @override
+  String get repo_list_title => "All Repositories";
+  /// "No more description"
+  @override
+  String get repo_no_desc => "No more description";
+  /// "Forked"
+  @override
+  String get repo_forked => "Forked";
+  /// "Private"
+  @override
+  String get repo_private => "Private";
 
   @override
   TextDirection get textDirection => TextDirection.ltr;

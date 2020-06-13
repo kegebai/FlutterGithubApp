@@ -1,18 +1,16 @@
 {
     "app_name": "FlutterGithub",
-    "ok": "确定",
-    "cancel": "取消",
-    "empty": "目前什么也没有哟(oﾟ▽ﾟ)o",
-    "licenses": "协议",
-    "close": "关闭",
 
-    "no_desc": "暂无描述!",
+    "bnb_title_dynamic": "动态",
+    "bnb_title_trend": "趋势",
+    "bnb_title_profile": "我的",
+
+    "desc_empty": "目前什么也没有哟(oﾟ▽ﾟ)o",
 
     "option_copy": "复制",
-
-    "login_text": "账号登录",
-    "oauth_text": "安全登录",
-    "Login_out": "退出登录",
+    "option_ok": "确定",
+    "option_cancel": "取消",
+    "option_close": "关闭",
 
     "language_default": "默认",
     "language_zh_CN": "中文",
@@ -22,6 +20,9 @@
     "login_username_hint_text": "用户名",
     "login_password_hint_text": "请输入密码",
     "login_success": "登录成功",
+    "login_text": "账号登录",
+    "logout_text": "退出登录",
+    "auth_text": "安全登录",
 
     "network_error_401": "[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]",
     "network_error_403": "403权限错误",
@@ -32,8 +33,14 @@
     "network_error": "网络错误",
     "github_refused": "Github Api 出现异常[Connection refused]，建议换个网络环境或者稍后再试",
 
-    "nothing_now": "目前什么都没有",
     "loading_text": "努力加载中···",
-    "loadmore_not": "没有更多数据",
-    "loadmore_text": "正在加载更多"
+    "load_more_text": "正在加载更多",
+    "load_more_no_more_data": "没有更多数据",
+    "load_failure": "加载失败",
+
+    
+    "repo_list_title": "所有仓库",
+    "repo_no_desc": "暂无描述!",
+    "repo_forked": "分支",
+    "repo_private": "私有"
 }

@@ -2,27 +2,28 @@ import 'package:flukit/flukit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/home/home_event.dart';
-import '../../blocs/home/home_state.dart';
-import '../../blocs/home/home_bloc.dart';
+import '../../blocs/repo_list/repo_list_event.dart';
+import '../../blocs/repo_list/repo_list_state.dart';
+import '../../blocs/repo_list/repo_list_bloc.dart';
+import '../../generated/i18n.dart';
 import '../../models/repo.dart';
 import '../../widgets/items/repo_list_item.dart';
 
-class HomePage extends StatefulWidget {
+class RepoListPage extends StatefulWidget {
   @override
-  _HomePageState createState() => new _HomePageState();
+  _RepoListPageState createState() => new _RepoListPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RepoListPageState extends State<RepoListPage> {
   final _controller = ScrollController();
   final _threshold = 200.0;
-  HomeBloc _homeBloc;
+  RepoListBloc _homeBloc;
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(_onScroll);
-    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _homeBloc = BlocProvider.of<RepoListBloc>(context);
   }
 
   @override
@@ -34,21 +35,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('首页')),
+      appBar: AppBar(title: Text(I18n.of(context).repo_list_title)),
       body: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+        child: BlocBuilder<RepoListBloc, RepoListState>(builder: (context, state) {
           if (state is Loading) {
             return Center(child: CircularProgressIndicator());
           }
           if (state is LoadFailed) {
-            return Center(child: Text('Failed to fetch repos'));
+            return Center(child: Text(I18n.of(context).load_failure));
           }
 
           if (state is Loaded) {
             if (state.repos == null || state.repos.length == 0) {
-              return Center(child: Text('No repos'));
+              return Center(child: Text(I18n.of(context).desc_empty));
             }
             return _buildBody(state);
+            // return _renderBody(state);
           }
         }),
       ),
@@ -83,10 +85,9 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (BuildContext context, int index) {
         return index >= state.repos.length
             ? BottomLoader()
-            : RepoItemWidget(repo: state.repos[index]);
+            : RepoListItem(state.repos[index]);
       },
-      itemCount: state.hasReachedMax 
-          ? state.repos.length : state.repos.length + 1,
+      itemCount: state.hasReachedMax ? state.repos.length : state.repos.length + 1,
       controller: _controller,
     );
   }
@@ -106,25 +107,6 @@ class BottomLoader extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class RepoItemWidget extends StatelessWidget {
-  final Repo repo;
-  const RepoItemWidget({Key key, @required this.repo}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(
-        '${repo.id}',
-        style: TextStyle(fontSize: 10.0),
-      ),
-      title: Text(repo.owner.login),
-      isThreeLine: true,
-      subtitle: Text(repo.language),
-      dense: true,
     );
   }
 }
