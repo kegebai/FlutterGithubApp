@@ -5,12 +5,12 @@ import '../app/utils/codec_util.dart';
 import '../db/db_service.dart';
 import '../models/event.dart';
 
-class EventDBProvider {
+class ReceivedEventDBProvider {
   int id;
   String name;
   String data;
 
-  static final String tableName = "t_event";
+  static final String tableName = "t_received_event";
   static final String cid = "id";
   static final String cname = "name";
   static final String cdata = "data";
@@ -25,9 +25,9 @@ class EventDBProvider {
     );
   ''';
 
-  EventDBProvider();
+  ReceivedEventDBProvider();
 
-  EventDBProvider.fromMap(Map map) {
+  ReceivedEventDBProvider.fromMap(Map map) {
     id = map[cid];
     name = map[cname];
     data = map[cdata];
@@ -41,7 +41,7 @@ class EventDBProvider {
     return map;
   }
 
-  Future<EventDBProvider> _getProvider(Database db, String name) async {
+  Future<ReceivedEventDBProvider> _getProvider(Database db, String name) async {
     List<Map<String, dynamic>> maps = await db.query(
       tableName,
       columns: [cid, cname, cdata],
@@ -49,13 +49,17 @@ class EventDBProvider {
       whereArgs: [name],
     );
     if (maps != null && maps.isNotEmpty) {
-      return EventDBProvider.fromMap(maps.first);
+      return ReceivedEventDBProvider.fromMap(maps.first);
     }
     return null;
   }
 
-  Future<int> addEvent(String name, String event) async {
+  Future<int> addReceivedEvent(String name, String event) async {
     var db = await DBService.open(tableName, createSql);
+
+    // String sql = "DELETE FROM t_received_event WHERE name = ?";
+    // await db.execute(sql, [name]);
+
     var provider = await _getProvider(db, name);
     if (provider != null) {
       await db.delete(tableName, where: '$cname = ?', whereArgs: [name]);
@@ -63,7 +67,7 @@ class EventDBProvider {
     return await db.insert(tableName, _toMap(name, event));
   }
 
-  Future<List<Event>> getEvents(String name) async {
+  Future<List<Event>> getReceivedEvents(String name) async {
     var db = await DBService.open(tableName, createSql);
     var provider = await _getProvider(db, name);
     if (provider != null) {

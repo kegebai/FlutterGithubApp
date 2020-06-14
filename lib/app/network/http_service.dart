@@ -64,9 +64,9 @@ class HttpService {
     url, 
     params, 
     Map<String, dynamic> header, 
-    Options options,
-    {tip=false}
-  ) async {
+    Options options, {
+    bool tip = false,
+  }) async {
     Map<String, dynamic> headers = new HashMap();
     if (header != null) headers.addAll(header);
 

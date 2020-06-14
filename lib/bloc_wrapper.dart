@@ -4,11 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import './app/local_storage.dart';
 import './blocs/auth/auth_bloc.dart';
 import './blocs/auth/auth_event.dart';
-import './blocs/repo_list/repo_list_bloc.dart';
-import './blocs/repo_list/repo_list_event.dart';
 import './blocs/global/global_bloc.dart';
 import './blocs/global/global_event.dart';
-import './repositories/imp/repo_repository_imp.dart';
 import './repositories/user_repository.dart';
 
 class BlocWrapper extends StatelessWidget {
@@ -28,9 +25,6 @@ class BlocWrapper extends StatelessWidget {
         ),
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(userRepo)..add(UnInited()),
-        ),
-        BlocProvider<RepoListBloc>(
-          create: (_) => RepoListBloc(new RepoRepositoryImp())..add(Fetch()),
         ),
       ], 
       child: child,

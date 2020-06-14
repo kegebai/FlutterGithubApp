@@ -18,8 +18,8 @@ class UserDBProvider {
   static final String createSql = ''' 
     CREATE TABLE IF NOT EXISTS $tableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name VARCHAR(12) NOT NULL,
-        data VARCHAR(256) NOT NULL,
+        name TEXT NOT NULL,
+        data TEXT NOT NULL,
         created DATETIME NOT NULL,
         updated DATETIME NOT NULL 
     );
