@@ -65,7 +65,7 @@ class UserDBProvider {
       await db.delete(tableName, where: '$cname = ?', whereArgs: [name]);
     }
 
-    // String sql = "INSERT INTO t_user (name, data) VALUES (?, ?)";
+    // String sql = "INSERT INTO t_user SET name=?, data=? WHERE cname=?";
     // return await db.rawInsert(sql, [name, event]);
 
     return await db.insert(tableName, _toMap(name, event));
