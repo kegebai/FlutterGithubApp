@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../app/utils/codec_util.dart';
-import '../db/db_service.dart';
-import '../models/event.dart';
+import '../../app/utils/codec_util.dart';
+import '../../app/db_service.dart';
+import '../../models/event.dart';
 
-class EventDBProvider {
+class ReceivedEventDao {
   int id;
   String name;
   String data;
 
-  static final String tableName = "t_event";
+  static final String tableName = "t_received_event";
   static final String cid = "id";
   static final String cname = "name";
   static final String cdata = "data";
@@ -25,9 +25,9 @@ class EventDBProvider {
     );
   ''';
 
-  EventDBProvider();
+  ReceivedEventDao();
 
-  EventDBProvider.fromMap(Map map) {
+  ReceivedEventDao.fromMap(Map map) {
     id = map[cid];
     name = map[cname];
     data = map[cdata];
@@ -41,7 +41,7 @@ class EventDBProvider {
     return map;
   }
 
-  Future<EventDBProvider> _getProvider(Database db, String name) async {
+  Future<ReceivedEventDao> _getDao(Database db, String name) async {
     List<Map<String, dynamic>> maps = await db.query(
       tableName,
       columns: [cid, cname, cdata],
@@ -49,23 +49,27 @@ class EventDBProvider {
       whereArgs: [name],
     );
     if (maps != null && maps.isNotEmpty) {
-      return EventDBProvider.fromMap(maps.first);
+      return ReceivedEventDao.fromMap(maps.first);
     }
     return null;
   }
 
-  Future<int> addEvent(String name, String event) async {
+  Future<int> addReceivedEvent(String name, String event) async {
     var db = await DBService.open(tableName, createSql);
-    var provider = await _getProvider(db, name);
+
+    // String sql = "DELETE FROM t_received_event WHERE name = ?";
+    // await db.execute(sql, [name]);
+
+    var provider = await _getDao(db, name);
     if (provider != null) {
       await db.delete(tableName, where: '$cname = ?', whereArgs: [name]);
     }
     return await db.insert(tableName, _toMap(name, event));
   }
 
-  Future<List<Event>> getEvents(String name) async {
+  Future<List<Event>> getReceivedEvents(String name) async {
     var db = await DBService.open(tableName, createSql);
-    var provider = await _getProvider(db, name);
+    var provider = await _getDao(db, name);
     if (provider != null) {
       List<Event> list = new List();
       List<dynamic> items = await compute(CodecUtil.decodeList, provider.data);

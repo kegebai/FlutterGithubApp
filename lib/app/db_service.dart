@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart' as path;
 
-import '../app/dlog.dart';
+import 'dlog.dart';
 import '../models/user.dart';
 import '../repositories/user_repository.dart';
 
